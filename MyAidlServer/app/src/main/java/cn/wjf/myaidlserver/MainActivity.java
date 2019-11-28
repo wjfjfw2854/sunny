@@ -2,12 +2,17 @@ package cn.wjf.myaidlserver;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.ComponentName;
 import android.content.ContentResolver;
 import android.content.ContentValues;
+import android.content.Intent;
+import android.content.ServiceConnection;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.IBinder;
 import android.os.Message;
+import android.os.RemoteException;
 import android.view.View;
 import android.widget.TextView;
 
@@ -23,6 +28,20 @@ public class MainActivity extends AppCompatActivity {
     private TextView txtContent;
     private TextView txtInitData;
     private TextView txtRefresh;
+
+    private ServiceConnection serviceConnection;
+    private MyRemoteService myRemoteService;
+    private final String strPackage = "cn.wjf.myaidlserver";
+    private final String strAction = strPackage + ".RemoteServiceX";
+    private final String strClassNameService = strPackage + ".RemoteService";
+    private InewBookListener inewBookListener = new InewBookListener.Stub() {
+        @Override
+        public void newBook(Book newBook) throws RemoteException {
+            txtAdd.setText(newBook.getName()+"__再去看下MyAidlClient端如果看到该书名则这2个app通讯成功！");
+        }
+    };
+    private TextView txtAdd;
+    private int number;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +65,59 @@ public class MainActivity extends AppCompatActivity {
                 setVal(queryContentProvider());
             }
         });
+        txtAdd = findViewById(R.id.txtAdd);
+        txtAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    myRemoteService.setBookNumber(++number);
+                    myRemoteService.addBook(new Book("本app_央国池鱼中书_" + number));
+                } catch (RemoteException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        initConnectServer();
     }
+
+    private void initConnectServer() {
+        if(serviceConnection == null) {
+            serviceConnection = new ServiceConnection() {
+                @Override
+                public void onServiceConnected(ComponentName name, IBinder service) {
+                    myRemoteService = MyRemoteService.Stub.asInterface(service);
+                    if (myRemoteService != null) {
+                        try {
+                            myRemoteService.registerListener(inewBookListener);//注册
+                            myRemoteService.asBinder().linkToDeath(deathRecipient, 0);//死亡代理
+                        } catch (RemoteException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+
+                @Override
+                public void onServiceDisconnected(ComponentName name) {
+                    myRemoteService = null;
+                }
+            };
+        }
+        Intent intent = new Intent(strAction);
+        intent.setPackage(strPackage);
+        bindService(intent,serviceConnection,BIND_AUTO_CREATE);
+    }
+
+    private IBinder.DeathRecipient deathRecipient = new IBinder.DeathRecipient() {
+        @Override
+        public void binderDied() {
+            if(myRemoteService == null)
+            {
+                return;
+            }
+            myRemoteService.asBinder().unlinkToDeath(deathRecipient,0);//解除死亡代理，若Binder死亡，不会在解发binderDied
+            myRemoteService = null;
+        }
+    };
 
     private void initContentProvider() {
         ContentResolver crl = getContentResolver();
@@ -127,5 +198,24 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 //        setVal(DataUtils.instance.getList());
+    }
+
+    @Override
+    protected void onDestroy() {
+        if(myRemoteService != null && myRemoteService.asBinder().isBinderAlive())
+        {
+            try {
+                myRemoteService.unregisterListener(inewBookListener);
+            }
+            catch (Exception e)
+            {
+                e.printStackTrace();
+            }
+        }
+        if(serviceConnection != null)
+        {
+            unbindService(serviceConnection);
+        }
+        super.onDestroy();
     }
 }

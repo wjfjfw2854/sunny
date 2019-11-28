@@ -39,6 +39,17 @@
         app:layout_constraintLeft_toRightOf="@+id/txtInitData"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txt" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/txtAdd"
+        android:textColor="#ff93"
+        android:textSize="21sp"
+        android:text="给app服务加入1条数据"
+        app:layout_constraintBottom_toTopOf="@+id/scroll"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtInitData" />
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -46,7 +57,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtInitData"
+        app:layout_constraintTop_toBottomOf="@+id/txtAdd"
         >
         <TextView
             android:layout_width="wrap_content"
