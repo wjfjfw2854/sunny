@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+                name="viewModel"
+                type="com.example.wujunfeng.recyclerviewcomplexapplication.complexrecyclerviewtool.TestMncgChiCangViewModel"/>
+    </data>
+
+    <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        <com.example.wujunfeng.recyclerviewcomplexapplication.complexrecyclerviewtool.complexrecyclerview.ComplexRecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/recyclerTestmncgChicang"
+                app:leftHeadSpace = "@{viewModel.leftHeadSpace}"
+                app:rightHeadSpace ="@{viewModel.rightHeadSpace}"
+                app:leftSpace="@{viewModel.leftSpace}"
+                app:rightSpace="@{viewModel.rightSpace}"
+                app:leftHeadSpaceOne = "@{viewModel.leftHeadSpaceOne}"
+                app:rightHeadSpaceOne ="@{viewModel.rightHeadSpaceOne}"
+                app:leftSpaceOne="@{viewModel.leftSpaceOne}"
+                app:rightSpaceOne="@{viewModel.rightSpaceOne}"
+                app:leftHeadSpaceTwo = "@{viewModel.leftHeadSpaceTwo}"
+                app:rightHeadSpaceTwo = "@{viewModel.rightHeadSpaceTwo}"
+                app:leftSpaceTwo = "@{viewModel.leftSpaceTwo}"
+                app:rightSpaceTwo = "@{viewModel.rightSpaceTwo}"
+                app:adapter="@{viewModel.complexRecyclerAdapter}"
+        />
+    </android.support.constraint.ConstraintLayout>
+</layout>

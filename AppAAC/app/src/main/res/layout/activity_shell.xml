@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="vm"
+            type="cn.wjf.appaac.vm.ShellVm" />
+        <variable
+            name="user"
+            type="cn.wjf.appaac.datas.User" />
+    </data>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ShellActivity">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="90dp"
+            android:id="@+id/txtClassName"
+            android:textColor="#ffff"
+            android:textSize="26sp"
+            android:background="#f8a9"
+            android:text="ShellActivity"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/txtName"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:id="@+id/txtName"
+            android:gravity="center"
+            android:textSize="24sp"
+            android:textColor="#ffff"
+            android:text="@{vm.userObser.name}"
+            android:background="#ff4f"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtClassName"
+            app:layout_constraintBottom_toTopOf="@+id/txtAge"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:id="@+id/txtAge"
+            android:gravity="center"
+            android:textSize="24sp"
+            android:textColor="#ffff"
+            android:text="@{vm.userObser.age}"
+            android:background="#f49f"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtName"
+            app:layout_constraintBottom_toTopOf="@+id/butRefresh"
+            />
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="90dp"
+            android:id="@+id/butRefresh"
+            android:background="#f88f"
+            android:textSize="26sp"
+            android:textColor="#f000"
+            android:text="刷新"
+            android:clickReq="@{vm}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtAge"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
