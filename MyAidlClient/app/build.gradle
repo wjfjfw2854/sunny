@@ -1,6 +1,17 @@
 apply plugin: 'com.android.application'
 
 android {
+
+    signingConfigs {
+        config {
+            keyAlias 'estock'
+            keyPassword 'hl2448'
+//            storeFile file('./xxx.keystore')
+            storePassword 'hl2448'
+            v2SigningEnabled false
+        }
+    }
+
     compileSdkVersion 28
     defaultConfig {
         applicationId "cn.wjf.myaidlclient"
@@ -8,6 +19,7 @@ android {
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
+        multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 //    sourceSets{
@@ -20,6 +32,7 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config
         }
     }
 }
