@@ -70,9 +70,7 @@ public class JobWakeUpService extends JobService {
             if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 channel = Integer.valueOf(nf.getChannelId());
             }
-//            Log.e("wjf>>>>","JobWakeUpService_manager.notify()通知后！startId--" + startId);
             startForeground(channel,nf);
-//            Log.e("wjf>>>>","JobWakeUpService_startForeground()通知后！startId--" + startId);
             NotificationChannel nc = manager.getNotificationChannel(channelId);
             if(nc.getImportance() == NotificationManager.IMPORTANCE_NONE)
             {
