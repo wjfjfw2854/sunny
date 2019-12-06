@@ -100,5 +100,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onDestroy() {
         releaseLock();
         super.onDestroy();
+        Log.e("wjf>>>>","MainActivity中onDestroy----");
     }
 }

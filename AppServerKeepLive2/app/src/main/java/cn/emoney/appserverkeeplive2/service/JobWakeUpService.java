@@ -12,6 +12,7 @@ import android.app.job.JobService;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.provider.Settings;
 import android.util.Log;
@@ -27,7 +28,7 @@ import cn.emoney.appserverkeeplive2.R;
 @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
 public class JobWakeUpService extends JobService {
 
-    private int jobWakeUpId = 0;
+    private int jobWakeUpId = 0x00200;
 //    private final long INTERVAL = 15 * 60 * 1000L;//7.0以后JobService最小间格不得小于15分钟
     String channelId = "80";
     private NotificationManager manager;
@@ -35,14 +36,14 @@ public class JobWakeUpService extends JobService {
 
     @Override
     public void onCreate() {
-        Log.e("wjf>>>>","应用退出后JobWakeUpService中onCreate()创建！");
+        Log.e("wjf>>>>","JobWakeUpService中onCreate()创建！");
         super.onCreate();
         manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        Log.e("wjf>>>>","应用退出后JobWakeUpService中onStartCommand()创建！");
+        Log.e("wjf>>>>","JobWakeUpService中onStartCommand()创建！");
         Intent intent1 = new Intent(this, MainActivity.class);
         startMain(intent1);
         return START_STICKY;
@@ -85,28 +86,8 @@ public class JobWakeUpService extends JobService {
 
     @Override
     public boolean onStartJob(JobParameters params) {
-        Log.e("wjf>>>>","应用退出后JobWakeUpService中onStartJob()创建！");
-        boolean msgServiceAlive = serviceAlive(StepService.class.getName());
-        boolean msgGuardServiceAlive = serviceAlive(GuardService.class.getName());
-        Log.e("wjf>>>>","应用退出后JobWakeUpService中onStartJob()创建！msgServiceAlive---" + msgServiceAlive + "::msgGuardServiceAlive---" + msgGuardServiceAlive);
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            if (!msgServiceAlive) {
-                startForegroundService(new Intent(this, StepService.class));
-            }
-            if (!msgGuardServiceAlive)
-            {
-                startForegroundService(new Intent(this, GuardService.class));
-            }
-        }
-        else {
-            if (!msgServiceAlive) {
-                startService(new Intent(this, StepService.class));
-            }
-            if (!msgGuardServiceAlive) {
-                startService(new Intent(this, GuardService.class));
-            }
-        }
-//        jobFinished(params,false);
+        Log.e("wjf>>>>","JobWakeUpService中onStartJob()创建！");
+        new AsyncTaskMonitor().execute(params);
         return true;
     }
 
@@ -114,12 +95,21 @@ public class JobWakeUpService extends JobService {
     public boolean onStopJob(JobParameters params) {
         Intent intent1 = new Intent(this, MainActivity.class);
         startMain(intent1);
-        return true;
+        return false;
     }
 
     private void scheduleJob(JobInfo jobInfo)
     {
-        JobScheduler jobScheduler = (JobScheduler)getSystemService(Context.JOB_SCHEDULER_SERVICE);
+        JobScheduler jobScheduler = null;
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
+        {
+            jobScheduler = (JobScheduler)getSystemService(JobScheduler.class);
+        }
+        else
+        {
+            jobScheduler = (JobScheduler)getSystemService(Context.JOB_SCHEDULER_SERVICE);
+        }
+        jobScheduler.cancel(jobWakeUpId);
         jobScheduler.schedule(jobInfo);
     }
 
@@ -164,5 +154,53 @@ public class JobWakeUpService extends JobService {
     @Override
     public void onDestroy() {
         super.onDestroy();
+        Log.e("wjf>>>>","JobWakeUpService退出onDestroy()准备再次自启动");
+        Intent intent1 = new Intent();
+        intent1.setClass(this,JobWakeUpService.class);
+        intent1.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startService(intent1);
+        Log.e("wjf>>>>","JobWakeUpService退出onDestroy()自启动完成");
+    }
+
+    private class AsyncTaskMonitor extends AsyncTask<JobParameters,Void,String>{
+        private JobParameters jobParameters;
+        @Override
+        protected String doInBackground(JobParameters... jobParameters) {//进度process
+            this.jobParameters = jobParameters[0];
+            boolean msgServiceAlive = serviceAlive(StepService.class.getName());
+            boolean msgGuardServiceAlive = serviceAlive(GuardService.class.getName());
+            Log.e("wjf>>>>","JobWakeUpService中onStartJob()的子线程AsyncTaskMonitor--msgServiceAlive---" + msgServiceAlive + "::msgGuardServiceAlive---" + msgGuardServiceAlive);
+            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                if (!msgServiceAlive) {
+                    startForegroundService(new Intent(JobWakeUpService.this, StepService.class));
+                }
+                if (!msgGuardServiceAlive)
+                {
+                    startForegroundService(new Intent(JobWakeUpService.this, GuardService.class));
+                }
+            }
+            else {
+                if (!msgServiceAlive) {
+                    startService(new Intent(JobWakeUpService.this, StepService.class));
+                }
+                if (!msgGuardServiceAlive) {
+                    startService(new Intent(JobWakeUpService.this, GuardService.class));
+                }
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {//结果result
+            super.onPostExecute(s);
+            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
+            {
+                jobFinished(jobParameters,true);//调用后才重复执行
+            }
+            else
+            {
+                jobFinished(jobParameters,false);//调用后才重复执行
+            }
+        }
     }
 }
