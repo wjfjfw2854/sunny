@@ -1,0 +1,2 @@
+include ':app', ':libproxy', ':appplug'
+rootProject.name='AppStartPluginApk'
