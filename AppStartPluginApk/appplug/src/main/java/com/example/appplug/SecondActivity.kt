@@ -7,7 +7,7 @@ class SecondActivity : PluginBaseActivity() {
 
     override fun onCreate(bundle: Bundle?) {
         super.onCreate(bundle)
-//        setContentView()
+        setContentView(R.layout.activity_second)
     }
 
 }
