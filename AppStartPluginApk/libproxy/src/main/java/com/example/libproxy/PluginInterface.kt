@@ -4,6 +4,12 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 
+/**
+ *   author  : wujunfeng
+ *   e-mail  : 421284553@qq.com
+ *   date    : 2019/12/11 17:58
+ *   version : 1.4.4
+ */
 interface PluginInterface {
 
     fun attach(activity : Activity)

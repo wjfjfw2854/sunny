@@ -6,6 +6,12 @@ import java.io.File
 import java.io.FileOutputStream
 import java.io.InputStream
 
+/**
+ *   author  : wujunfeng
+ *   e-mail  : 421284553@qq.com
+ *   date    : 2019/12/11 17:58
+ *   version : 1.4.4
+ */
 object FileCopyUtil {
 
     fun copy2Dirs(context: Context,name : String) : String{

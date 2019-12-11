@@ -9,6 +9,12 @@ import android.content.res.Resources
 import dalvik.system.DexClassLoader
 import java.lang.Exception
 
+/**
+ *   author  : wujunfeng
+ *   e-mail  : 421284553@qq.com
+ *   date    : 2019/12/11 17:58
+ *   version : 1.4.4
+ */
 class PluginBridger {
     var c : Context ?= null
     var packageInfo : PackageInfo ?= null
