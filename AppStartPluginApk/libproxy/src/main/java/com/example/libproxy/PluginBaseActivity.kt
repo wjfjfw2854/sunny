@@ -56,6 +56,22 @@ open class PluginBaseActivity : Activity()/*AppCompatActivity()FragmentActivity(
             super.onCreate(bundle)
             proxyActivity = this
         }
+        else
+        {
+            Log.e("wjf>>>>","来自傀儡的onCreate()")
+        }
+    }
+
+    override fun onNewIntent(intent: Intent?) {
+        intent?.let {
+            if(origin == PluginKeyVal.INNER) {
+                super.onNewIntent(intent)
+            }
+            else
+            {
+                Log.e("wjf>>>>","来自傀儡的onNewIntent()")
+            }
+        }
     }
 
     override fun onStart() {
@@ -64,7 +80,7 @@ open class PluginBaseActivity : Activity()/*AppCompatActivity()FragmentActivity(
         }
         else
         {
-            Log.e("wjf>>>>","来自壳的onStart()")
+            Log.e("wjf>>>>","来自傀儡的onStart()")
         }
     }
 
@@ -74,7 +90,7 @@ open class PluginBaseActivity : Activity()/*AppCompatActivity()FragmentActivity(
         }
         else
         {
-            Log.e("wjf>>>>","来自壳的onResume()")
+            Log.e("wjf>>>>","来自傀儡的onResume()")
         }
     }
 
@@ -84,7 +100,7 @@ open class PluginBaseActivity : Activity()/*AppCompatActivity()FragmentActivity(
         }
         else
         {
-            Log.e("wjf>>>>","来自壳的onPause()")
+            Log.e("wjf>>>>","来自傀儡的onPause()")
         }
     }
 
@@ -94,7 +110,7 @@ open class PluginBaseActivity : Activity()/*AppCompatActivity()FragmentActivity(
         }
         else
         {
-            Log.e("wjf>>>>","来自壳的onStop()")
+            Log.e("wjf>>>>","来自傀儡的onStop()")
         }
     }
 
@@ -104,7 +120,7 @@ open class PluginBaseActivity : Activity()/*AppCompatActivity()FragmentActivity(
         }
         else
         {
-            Log.e("wjf>>>>","来自壳的onDestroy()")
+            Log.e("wjf>>>>","来自傀儡的onDestroy()")
         }
     }
 
@@ -114,7 +130,7 @@ open class PluginBaseActivity : Activity()/*AppCompatActivity()FragmentActivity(
         }
         else
         {
-            Log.e("wjf>>>>","来自壳的onActivityResult()")
+            Log.e("wjf>>>>","来自傀儡的onActivityResult()")
         }
     }
 

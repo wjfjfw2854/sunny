@@ -14,6 +14,7 @@ interface PluginInterface {
 
     fun attach(activity : Activity)
     fun onCreate(savedInstanceState : Bundle?)
+    fun onNewIntent(intent : Intent?)
     fun onStart()
     fun onResume()
     fun onPause()
