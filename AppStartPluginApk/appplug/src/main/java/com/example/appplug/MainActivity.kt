@@ -13,6 +13,7 @@ import com.example.libproxy.PluginBaseActivity
  */
 class MainActivity : PluginBaseActivity() {
 
+    var x : Int ?= null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -20,5 +21,6 @@ class MainActivity : PluginBaseActivity() {
             val intent : Intent = Intent(this@MainActivity.proxyActivity,SecondActivity::class.java)
             startActivity(intent)
         }
+        x = 888
     }
 }

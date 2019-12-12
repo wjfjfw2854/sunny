@@ -16,7 +16,7 @@ import androidx.fragment.app.FragmentActivity
  *   date    : 2019/12/11 17:58
  *   version : 1.4.4
  */
-open class PluginBaseActivity : FragmentActivity(),PluginInterface {
+open class PluginBaseActivity : Activity()/*AppCompatActivity()FragmentActivity()*/,PluginInterface {
 
     var origin :Int = PluginKeyVal.INNER
     var proxyActivity : Activity ?= null
