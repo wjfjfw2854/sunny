@@ -1,0 +1,4 @@
+生成jni关键步骤
+1.javac gebilaolitou/ndkdemo/NDKTools.java
+2.set classpath=F:\git_local_repository\AppJni2\app\src\main\java
+3.javah -jni gebilaolitou.ndkdemo.NDKTools
