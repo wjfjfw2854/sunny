@@ -9,7 +9,7 @@ package gebilaolitou.ndkdemo;
 public class NDKTools {
     static {
         try {
-            System.loadLibrary("ndkdemotest-jni");
+            System.loadLibrary("ndkstatic");
         }
         catch (Exception e)
         {

@@ -15,5 +15,47 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+    <EditText
+        android:layout_width="0dp"
+        android:layout_height="80dp"
+        android:id="@+id/edt1"
+        app:layout_constraintTop_toBottomOf="@+id/sample_text"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/edt2"
+        android:background="#8f77"
+        />
+    <EditText
+        android:layout_width="0dp"
+        android:layout_height="80dp"
+        android:id="@+id/edt2"
+        app:layout_constraintTop_toBottomOf="@+id/sample_text"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/edt1"
+        android:background="#877f"
+        />
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/txtShowNative"
+        android:textColor="#ff4f"
+        android:textSize="20sp"
+        android:text="接收native数据"
+        android:gravity="center"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/but"
+        app:layout_constraintTop_toBottomOf="@+id/edt2"
+        />
+    <Button
+        android:layout_width="180dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/but"
+        app:layout_constraintTop_toBottomOf="@+id/txtShowNative"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:textColor="#f84f"
+        android:textSize="22sp"
+        android:text="去native拼接,Go!"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
