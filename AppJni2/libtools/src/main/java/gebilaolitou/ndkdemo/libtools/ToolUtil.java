@@ -7,4 +7,14 @@ package gebilaolitou.ndkdemo.libtools;
  * version : 1.4.4
  */
 public class ToolUtil {
+    static {
+        try {
+            System.loadLibrary("jnitools");
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
+    public static native String or(String x1,String x2);
 }
