@@ -1,5 +1,8 @@
 package gebilaolitou.ndkdemo.libtools;
 
+import java.util.ArrayList;
+import gebilaolitou.ndkdemo.libtools.utils.DataElement;
+
 /**
  * author  : wujunfeng
  * e-mail  : 421284553@qq.com
@@ -17,4 +20,5 @@ public class ToolUtil {
         }
     }
     public static native String or(String x1,String x2);
+    public static native long calcXyz(ArrayList<DataElement> arys);
 }

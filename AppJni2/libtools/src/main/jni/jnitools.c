@@ -9,6 +9,7 @@
 #include <stdbool.h>
 
 jstring orString(JNIEnv *env,jclass clazz,jstring x1,jstring x2);
+jlong calcu2Arys(JNIEnv *env,jclass clazz,jobject arys);
 JNIEXPORT jint JNI_OnLoad(JavaVM* vm,void* reserved){
     __android_log_print(ANDROID_LOG_DEBUG,"JNI_OnLoad","动态进入JNI_OnLoad，很不错的开端！");
     JNIEnv* env = NULL;
@@ -20,12 +21,13 @@ JNIEXPORT jint JNI_OnLoad(JavaVM* vm,void* reserved){
         return res;
     }
     const JNINativeMethod method[] = {
-            {"or","(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;",(void*)orString}
+            {"or","(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;",(void*)orString},
+            {"calcXyz","(Ljava/util/ArrayList;)J",(void*)calcu2Arys}
     };
     jclass jClassName = (*env)->FindClass(env,"gebilaolitou/ndkdemo/libtools/ToolUtil");
     __android_log_print(ANDROID_LOG_DEBUG,"JNI_OnLoad","找到了jClassName");
 
-    jint ret = (*env)->RegisterNatives(env,jClassName,method,1);
+    jint ret = (*env)->RegisterNatives(env,jClassName,method,2);
     __android_log_print(ANDROID_LOG_DEBUG,"JNI_OnLoad","动态注册成功?ret: ");
 
     if(ret != JNI_OK)
@@ -102,6 +104,42 @@ jstring orString(JNIEnv *env,jclass clazz,jstring x1,jstring x2){
     jstring strFinal = (*env)->NewStringUTF(env,midChar);
     freeMem(midChar);
     return strFinal;
+}
+
+jlong calcu2Arys(JNIEnv *env,jclass clazz,jobject arys){
+    jclass listClass = (*env)->GetObjectClass(env,arys);
+    __android_log_print(ANDROID_LOG_DEBUG,"wjf_方法calcu2Arys","listClass: ");
+    jmethodID methGet = (*env)->GetMethodID(env,listClass,"get","(I)Ljava/lang/Object;");
+    __android_log_print(ANDROID_LOG_DEBUG,"wjf_方法calcu2Arys","methGet: ");
+    jmethodID sizeD = (*env)->GetMethodID(env,listClass,"size","()I");
+    __android_log_print(ANDROID_LOG_DEBUG,"wjf_方法calcu2Arys","sizeD: ");
+    jlong xMid;
+    int i;
+    jint size = (*env)->CallIntMethod(env,arys,sizeD);
+    for(i = 0;i < size;i ++) {
+//        __android_log_print(ANDROID_LOG_DEBUG,"wjf_方法calcu2Arys","i: ");
+        jobject findDataElement = (*env)->CallObjectMethod(env,arys, methGet, i);
+//        __android_log_print(ANDROID_LOG_DEBUG,"wjf_方法calcu2Arys","findDataElement: ");
+        jclass dataElementClass = (*env)->GetObjectClass(env,findDataElement);
+//        __android_log_print(ANDROID_LOG_DEBUG,"wjf_方法calcu2Arys","dataElementClass: ");
+
+        jmethodID getX = (*env)->GetMethodID(env, dataElementClass, "getX", "()J");
+//        __android_log_print(ANDROID_LOG_DEBUG,"wjf_方法calcu2Arys","getX: ");
+        jlong x = (*env)->CallLongMethod(env, findDataElement, getX);
+//        __android_log_print(ANDROID_LOG_DEBUG,"wjf_方法calcu2Arys","x: ");
+
+        jmethodID getY = (*env)->GetMethodID(env, dataElementClass, "getY", "()J");
+//        __android_log_print(ANDROID_LOG_DEBUG,"wjf_方法calcu2Arys","getY: ");
+        jlong y = (*env)->CallLongMethod(env, findDataElement, getY);
+//        __android_log_print(ANDROID_LOG_DEBUG,"wjf_方法calcu2Arys","y: ");
+
+        jmethodID getZ = (*env)->GetMethodID(env, dataElementClass, "getZ", "()J");
+//        __android_log_print(ANDROID_LOG_DEBUG,"wjf_方法calcu2Arys","getZ: ");
+        jlong z = (*env)->CallLongMethod(env, findDataElement, getZ);
+//        __android_log_print(ANDROID_LOG_DEBUG,"wjf_方法calcu2Arys","z: ");
+        xMid += x * y * z;
+    }
+    return xMid;
 }
 
 
