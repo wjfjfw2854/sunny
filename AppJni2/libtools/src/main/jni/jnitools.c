@@ -113,7 +113,7 @@ jlong calcu2Arys(JNIEnv *env,jclass clazz,jobject arys){
     __android_log_print(ANDROID_LOG_DEBUG,"wjf_方法calcu2Arys","methGet: ");
     jmethodID sizeD = (*env)->GetMethodID(env,listClass,"size","()I");
     __android_log_print(ANDROID_LOG_DEBUG,"wjf_方法calcu2Arys","sizeD: ");
-    jlong xMid;
+    jlong xMid = 0;
     int i;
     jint size = (*env)->CallIntMethod(env,arys,sizeD);
     for(i = 0;i < size;i ++) {
@@ -124,16 +124,28 @@ jlong calcu2Arys(JNIEnv *env,jclass clazz,jobject arys){
 //        __android_log_print(ANDROID_LOG_DEBUG,"wjf_方法calcu2Arys","dataElementClass: ");
 
         jmethodID getX = (*env)->GetMethodID(env, dataElementClass, "getX", "()J");
+        if((*env)->ExceptionOccurred(env))
+        {
+            return 0;
+        }
 //        __android_log_print(ANDROID_LOG_DEBUG,"wjf_方法calcu2Arys","getX: ");
         jlong x = (*env)->CallLongMethod(env, findDataElement, getX);
 //        __android_log_print(ANDROID_LOG_DEBUG,"wjf_方法calcu2Arys","x: ");
 
         jmethodID getY = (*env)->GetMethodID(env, dataElementClass, "getY", "()J");
+        if((*env)->ExceptionOccurred(env))
+        {
+            return 0;
+        }
 //        __android_log_print(ANDROID_LOG_DEBUG,"wjf_方法calcu2Arys","getY: ");
         jlong y = (*env)->CallLongMethod(env, findDataElement, getY);
 //        __android_log_print(ANDROID_LOG_DEBUG,"wjf_方法calcu2Arys","y: ");
 
         jmethodID getZ = (*env)->GetMethodID(env, dataElementClass, "getZ", "()J");
+        if((*env)->ExceptionOccurred(env))
+        {
+            return 0;
+        }
 //        __android_log_print(ANDROID_LOG_DEBUG,"wjf_方法calcu2Arys","getZ: ");
         jlong z = (*env)->CallLongMethod(env, findDataElement, getZ);
 //        __android_log_print(ANDROID_LOG_DEBUG,"wjf_方法calcu2Arys","z: ");

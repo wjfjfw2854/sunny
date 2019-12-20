@@ -1,5 +1,7 @@
 package gebilaolitou.ndkdemo.libtools.utils;
 
+import android.util.Log;
+
 /**
  * author  : wujunfeng
  * e-mail  : 421284553@qq.com
@@ -12,6 +14,7 @@ public class DataElement {
     private long z;
 
     public long getX() {
+        Log.e("wjf>>>>","getX(): " + x);
         return x;
     }
 
@@ -20,6 +23,7 @@ public class DataElement {
     }
 
     public long getY() {
+        Log.e("wjf>>>>","getY(): " + y);
         return y;
     }
 
@@ -28,6 +32,7 @@ public class DataElement {
     }
 
     public long getZ() {
+        Log.e("wjf>>>>","getZ(): " + z);
         return z;
     }
 
