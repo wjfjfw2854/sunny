@@ -39,15 +39,15 @@ public class ComplexDataTemple implements Serializable,Cloneable {
         }
     }
     public enum DataTempleOne{//模拟炒股账号
-        NAEM(0,"益盟0"),
-        ZDF(1,"益盟1"),
-        YK(2,"益盟2"),
-        YKL(3,"益盟3"),
-        CBJ(4,"益盟4"),
-        ZXJ(5,"益盟5"),
-        ZXJ1(6,"益盟6"),
-        ZXJ2(7,"益盟7"),
-        ZXJ3(8,"益盟8");
+        NAEM(0,"标题头0"),
+        ZDF(1,"标题头1"),
+        YK(2,"标题头2"),
+        YKL(3,"标题头3"),
+        CBJ(4,"标题头4"),
+        ZXJ(5,"标题头5"),
+        ZXJ1(6,"标题头6"),
+        ZXJ2(7,"标题头7"),
+        ZXJ3(8,"标题头8");
         public int id;
         public String name;
         DataTempleOne(int id,String name)
@@ -58,15 +58,15 @@ public class ComplexDataTemple implements Serializable,Cloneable {
     }
 
     public enum DataTempleTwo{//模拟炒股账号
-        NAEM(0,"益盟0"),
-        ZDF(1,"益盟1"),
-        YK(2,"益盟2"),
-        YKL(3,"益盟3"),
-        CBJ(4,"益盟4"),
-        ZXJ(5,"益盟5"),
-        ZXJ1(6,"益盟6"),
-        ZXJ2(7,"益盟7"),
-        ZXJ3(8,"益盟8");
+        NAEM(0,"标题头0"),
+        ZDF(1,"标题头1"),
+        YK(2,"标题头2"),
+        YKL(3,"标题头3"),
+        CBJ(4,"标题头4"),
+        ZXJ(5,"标题头5"),
+        ZXJ1(6,"标题头6"),
+        ZXJ2(7,"标题头7"),
+        ZXJ3(8,"标题头8");
         public int id;
         public String name;
         DataTempleTwo(int id,String name)

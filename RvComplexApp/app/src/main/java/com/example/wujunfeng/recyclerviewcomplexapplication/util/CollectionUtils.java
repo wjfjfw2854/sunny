@@ -1,4 +1,4 @@
-﻿package com.example.wujunfeng.recyclerviewcomplexapplication.util;
+package com.example.wujunfeng.recyclerviewcomplexapplication.util;
 
 import java.util.List;
 import java.util.Map;
