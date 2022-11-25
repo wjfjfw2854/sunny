@@ -48,7 +48,7 @@ public class HeadSmall extends Small{
         super.onDraw(canvas);
 //        String str = (String)space.obj;
 //        cn.emoney.hvscroll.DrawTool.drawRectText(canvas, str, paint, area, cn.emoney.hvscroll.DrawTool.CENTER, false);
-        if(data != null)
+        if(data != null&&space != null)
         {
             ComplexDataTemple.DataTemple dataTemple = null;
             ComplexDataTemple.DataTempleOne dataTempleOne = null;
@@ -89,7 +89,14 @@ public class HeadSmall extends Small{
                     val = hashMap.get(dataTempleTwo.id);
                 }
                 if(!TextUtils.isEmpty(val)) {
-                    DrawTool.drawRectText(canvas, val, paint, area, DrawTool.CENTER, false);
+                    int gravity = DrawTool.CENTER;
+                    if (space.args != null && space.args.length > 0) {
+                        Object obj = space.args[0];
+                        if (obj instanceof Integer) {
+                            gravity = ((Integer)obj).intValue();
+                        }
+                    }
+                    DrawTool.drawRectText(canvas, val, paint, area, gravity, false);
                 }
             }
         }

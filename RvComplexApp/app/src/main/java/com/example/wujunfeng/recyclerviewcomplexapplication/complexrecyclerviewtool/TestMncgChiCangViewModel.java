@@ -3,12 +3,13 @@ package com.example.wujunfeng.recyclerviewcomplexapplication.complexrecyclerview
 import android.app.Application;
 import android.content.Context;
 import android.support.annotation.NonNull;
-import com.example.wujunfeng.recyclerviewcomplexapplication.R;
+
 import com.example.wujunfeng.recyclerviewcomplexapplication.complexrecyclerviewtool.datatemple.ComplexDataTemple;
 import com.example.wujunfeng.recyclerviewcomplexapplication.complexrecyclerviewtool.datatemple.DataReflect;
 import com.example.wujunfeng.recyclerviewcomplexapplication.complexrecyclerviewtool.small.HeadSmall;
 import com.example.wujunfeng.recyclerviewcomplexapplication.complexrecyclerviewtool.small.TxtSmall;
 import com.example.wujunfeng.recyclerviewcomplexapplication.complexrecyclerviewtool.space.SmallSpace;
+import com.example.wujunfeng.recyclerviewcomplexapplication.util.DrawTool;
 import com.example.wujunfeng.recyclerviewcomplexapplication.util.RvItemDataType;
 import com.example.wujunfeng.recyclerviewcomplexapplication.vm.BaseViewModel;
 
@@ -105,7 +106,7 @@ public class TestMncgChiCangViewModel extends BaseViewModel {
         for(int i = 0;i < 29;i ++) {
             DataReflect dataReflect1 = new DataReflect();
             dataReflect1.type = RvItemDataType.TYPE_TOP1;
-            dataReflect1.hashMapItemOne.put(ComplexDataTemple.DataTempleOne.NAEM.id, "益盟" + i);
+            dataReflect1.hashMapItemOne.put(ComplexDataTemple.DataTempleOne.NAEM.id, "洪都航空" + i);
             dataReflect1.hashMapItemOne.put(ComplexDataTemple.DataTempleOne.ZDF.id, "10.00%" + i);
             dataReflect1.hashMapItemOne.put(ComplexDataTemple.DataTempleOne.YK.id, "600" + i);
             dataReflect1.hashMapItemOne.put(ComplexDataTemple.DataTempleOne.YKL.id, "70" + i);
@@ -148,14 +149,14 @@ public class TestMncgChiCangViewModel extends BaseViewModel {
 
     private void initSmallSpace()
     {
-        leftHeadSpace.add(new SmallSpace(ComplexDataTemple.DataTemple.NAEM, HeadSmall.class,smallWidth));
+        leftHeadSpace.add(new SmallSpace(ComplexDataTemple.DataTemple.NAEM, HeadSmall.class,smallWidth,new Object[]{DrawTool.LEFT}));
         for(int i = 1; i < ComplexDataTemple.DataTemple.values().length;i ++) {
-            rightHeadSpace.add(new SmallSpace(ComplexDataTemple.DataTemple.values()[i], HeadSmall.class, smallWidth));
+            rightHeadSpace.add(new SmallSpace(ComplexDataTemple.DataTemple.values()[i], HeadSmall.class, smallWidth,new Object[]{DrawTool.RIGHT}));
         }
 
-        leftSpace.add(new SmallSpace(ComplexDataTemple.DataTemple.NAEM, TxtSmall.class,smallWidth));
+        leftSpace.add(new SmallSpace(ComplexDataTemple.DataTemple.NAEM, TxtSmall.class,smallWidth,new Object[]{DrawTool.LEFT}));
         for(int i = 1; i < ComplexDataTemple.DataTemple.values().length;i ++) {
-            rightSpace.add(new SmallSpace(ComplexDataTemple.DataTemple.values()[i], TxtSmall.class, smallWidth));
+            rightSpace.add(new SmallSpace(ComplexDataTemple.DataTemple.values()[i], TxtSmall.class, smallWidth,new Object[]{DrawTool.RIGHT}));
         }
 
 

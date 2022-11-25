@@ -39,7 +39,7 @@ public class TxtSmall extends Small{
     @Override
     public void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        if(data != null) {
+        if(data != null&&space != null) {
 //            if(data instanceof MncgUtils.SecuShareItem) {
 //                stockName.setText(data.stockName);
 //                stockCode.setText(data.stockCode);
@@ -93,7 +93,14 @@ public class TxtSmall extends Small{
                     val = hashMap.get(dataTempleTwo.id);
                 }
                 if(!TextUtils.isEmpty(val)) {
-                    DrawTool.drawRectText(canvas, val, paint, areaSubstance, DrawTool.CENTER, true);
+                    int gravity = DrawTool.CENTER;
+                    if (space.args != null && space.args.length > 0) {
+                        Object obj = space.args[0];
+                        if (obj instanceof Integer) {
+                            gravity = ((Integer)obj).intValue();
+                        }
+                    }
+                    DrawTool.drawRectText(canvas, val, paint, areaSubstance, gravity, true);
                 }
             }
         }
