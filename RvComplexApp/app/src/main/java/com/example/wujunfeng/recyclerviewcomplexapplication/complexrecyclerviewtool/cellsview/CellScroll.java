@@ -62,6 +62,9 @@ public class CellScroll extends View {
                         RectF rectF = small.getArea();
                         if (rectF != null && rectF.contains(x,y)) {
                             column = i;
+                            small.setSortVal();
+                            //点击标题排序后要刷新
+                            invalidate();
                             break;
                         }
                     }

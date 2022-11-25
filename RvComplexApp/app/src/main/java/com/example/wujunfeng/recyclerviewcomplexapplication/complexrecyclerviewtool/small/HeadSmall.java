@@ -5,6 +5,7 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.RectF;
 import android.text.TextUtils;
+
 import com.example.wujunfeng.recyclerviewcomplexapplication.complexrecyclerviewtool.datatemple.ComplexDataTemple;
 import com.example.wujunfeng.recyclerviewcomplexapplication.complexrecyclerviewtool.datatemple.DataReflect;
 import com.example.wujunfeng.recyclerviewcomplexapplication.complexrecyclerviewtool.space.SmallSpace;
@@ -90,13 +91,38 @@ public class HeadSmall extends Small{
                 }
                 if(!TextUtils.isEmpty(val)) {
                     int gravity = DrawTool.CENTER;
-                    if (space.args != null && space.args.length > 0) {
-                        Object obj = space.args[0];
-                        if (obj instanceof Integer) {
-                            gravity = ((Integer)obj).intValue();
+                    Object[] args = space.args;
+                    float rightSortImgWidth = 0;
+                    float rightSortImgHeight = 0;
+                    if (args != null) {
+                        if (args.length > 0) {
+                            Object obj = args[0];
+                            if (obj instanceof Integer) {
+                                gravity = ((Integer) obj).intValue();
+                            }
+                        }
+                        if (args.length > 2) {
+                            if (args[2] instanceof int[]) {
+                                int[] wh = (int[])args[2];
+                                rightSortImgWidth = wh[0];
+                                rightSortImgHeight = wh[1];
+                            }
+                        }
+                        if (args.length > 1) {
+                            Object arg1 = args[1];
+                            if (arg1 != null && arg1 instanceof int[]) {
+                                int[] drawableId = (int[]) arg1;
+                                if (drawableId.length > 0) {
+                                    RectF rectF = new RectF(area.right - rightSortImgWidth, area.top, area.right, area.bottom);
+                                    int sortVal = getSortVal();
+                                    int drawableIdFinal = drawableId[sortVal];
+                                    DrawTool.drawRectImage(context, canvas, drawableIdFinal, rectF, rightSortImgWidth, rightSortImgHeight);
+                                }
+                            }
                         }
                     }
-                    DrawTool.drawRectText(canvas, val, paint, area, gravity, false);
+                    RectF rectF = new RectF(area.left,area.top,area.right-rightSortImgWidth,area.bottom);
+                    DrawTool.drawRectText(canvas, val, paint, rectF, gravity, false);
                 }
             }
         }
