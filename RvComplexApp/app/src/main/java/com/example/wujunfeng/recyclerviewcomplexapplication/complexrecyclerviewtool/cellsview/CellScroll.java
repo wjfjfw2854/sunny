@@ -5,8 +5,11 @@ import android.graphics.Canvas;
 import android.graphics.RectF;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
+
 import com.example.wujunfeng.recyclerviewcomplexapplication.complexrecyclerviewtool.small.Small;
 import com.example.wujunfeng.recyclerviewcomplexapplication.complexrecyclerviewtool.space.SmallSpace;
 
@@ -17,6 +20,8 @@ public class CellScroll extends View {
 
     List<Small> smalls = new ArrayList<>();
     private int position;
+    private float x,y;
+    private boolean isLeft;
 
     public CellScroll(Context context) {
         this(context,null);
@@ -47,6 +52,32 @@ public class CellScroll extends View {
         ViewGroup.LayoutParams lp = getLayoutParams();
         lp.width = right;
         setLayoutParams(lp);
+        setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int column = -1;
+                for (int i = 0;i < smalls.size();i ++) {
+                    Small small = smalls.get(i);
+                    if (small != null) {
+                        RectF rectF = small.getArea();
+                        if (rectF != null && rectF.contains(x,y)) {
+                            column = i;
+                            break;
+                        }
+                    }
+                }
+                Toast.makeText(getContext(),"点击的是-"+(isLeft?"左边":"右边")+"-第position=" + position + "行,第column="+column+"列",Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        if (event.getAction() == MotionEvent.ACTION_UP) {
+            x = event.getX();
+            y = event.getY();
+        }
+        return super.onTouchEvent(event);
     }
 
     private Small birthSmall(SmallSpace smallSpace) {
@@ -74,8 +105,9 @@ public class CellScroll extends View {
         }
     }
 
-    public void bindData(Object data,int pos)
+    public void bindData(Object data,int pos,boolean isLeft)
     {
+        this.isLeft = isLeft;
         position = pos;
         for(Small small : smalls)
         {

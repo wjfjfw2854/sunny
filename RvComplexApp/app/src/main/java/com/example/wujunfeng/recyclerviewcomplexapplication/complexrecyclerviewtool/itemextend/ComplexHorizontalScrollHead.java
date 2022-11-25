@@ -49,7 +49,7 @@ public class ComplexHorizontalScrollHead extends ItemBaseComplexRecycler {
                 celloutHead.scrollTo(scrollHelper.curScrollX1, 0);
             }
         }
-        cellScrollHeadLeft.bindData(data,pos);
-        cellScrollHeadRight.bindData(data,pos);
+        cellScrollHeadLeft.bindData(data,pos,true);
+        cellScrollHeadRight.bindData(data,pos,false);
     }
 }

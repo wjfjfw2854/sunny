@@ -49,7 +49,7 @@ public class ComplexHorizontalScrollItem extends ItemBaseComplexRecycler {
                 celloutItem.scrollTo(scrollHelper.curScrollX1, 0);
             }
         }
-        cellScrollItemLeft.bindData(data,pos);
-        cellScrollItemRight.bindData(data,pos);
+        cellScrollItemLeft.bindData(data,pos,true);
+        cellScrollItemRight.bindData(data,pos,false);
     }
 }

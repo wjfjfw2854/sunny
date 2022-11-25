@@ -31,14 +31,6 @@ public abstract class MutiComplexRecyclerItemAdapter extends RecyclerView.Adapte
     @Override
     public void onBindViewHolder(ItemBaseComplexRecycler holder, final int position) {
         holder.bindData(datas.get(position), position);
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (onItemClickListner != null) {
-                    onItemClickListner.onItemClick(position);
-                }
-            }
-        });
     }
 
     @Override
