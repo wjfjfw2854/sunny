@@ -3,10 +3,12 @@ package com.example.wujunfeng.recyclerviewcomplexapplication.complexrecyclerview
 import android.app.Application;
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.widget.Toast;
 
 import com.example.wujunfeng.recyclerviewcomplexapplication.R;
 import com.example.wujunfeng.recyclerviewcomplexapplication.complexrecyclerviewtool.datatemple.ComplexDataTemple;
 import com.example.wujunfeng.recyclerviewcomplexapplication.complexrecyclerviewtool.datatemple.DataReflect;
+import com.example.wujunfeng.recyclerviewcomplexapplication.complexrecyclerviewtool.interfaces.HeadClickLis;
 import com.example.wujunfeng.recyclerviewcomplexapplication.complexrecyclerviewtool.small.HeadSmall;
 import com.example.wujunfeng.recyclerviewcomplexapplication.complexrecyclerviewtool.small.TxtSmall;
 import com.example.wujunfeng.recyclerviewcomplexapplication.complexrecyclerviewtool.space.SmallSpace;
@@ -155,12 +157,24 @@ public class TestMncgChiCangViewModel extends BaseViewModel {
                 R.mipmap.tzt_userstock_pauxu_down,
                 R.mipmap.tzt_userstock_pauxu_up
         };
-        leftHeadSpace.add(new SmallSpace(ComplexDataTemple.DataTemple.NAEM, HeadSmall.class,smallWidth,new Object[]{DrawTool.LEFT,null}));
+        HeadClickLis headClickLisLeft = new HeadClickLis() {
+            @Override
+            public void clickHead(String titleName,int positionRow,int indexColumn) {
+                Toast.makeText(getApplication(),"点击的是-titleName="+titleName+"-第positionRow=" + positionRow + "行,第indexColumn="+indexColumn+"列",Toast.LENGTH_SHORT).show();
+            }
+        };
+        leftHeadSpace.add(new SmallSpace(ComplexDataTemple.DataTemple.NAEM, HeadSmall.class,smallWidth,new Object[]{DrawTool.LEFT,null,null,headClickLisLeft}));
         int width = DrawTool.dp2Px(getApplication(),7);
         int height = DrawTool.dp2Px(getApplication(),13);
+        HeadClickLis headClickLisRight = new HeadClickLis() {
+            @Override
+            public void clickHead(String titleName,int positionRow,int indexColumn) {
+                Toast.makeText(getApplication(),"点击的是-titleName="+titleName+"-第positionRow=" + positionRow + "行,第indexColumn="+indexColumn+"列",Toast.LENGTH_SHORT).show();
+            }
+        };
         for(int i = 1; i < ComplexDataTemple.DataTemple.values().length;i ++) {
             int[] wh = new int[] {width,height};
-            rightHeadSpace.add(new SmallSpace(ComplexDataTemple.DataTemple.values()[i], HeadSmall.class, smallWidth,new Object[]{DrawTool.RIGHT,sortDrawId,wh}));
+            rightHeadSpace.add(new SmallSpace(ComplexDataTemple.DataTemple.values()[i], HeadSmall.class, smallWidth,new Object[]{DrawTool.RIGHT,sortDrawId,wh,headClickLisRight}));
         }
 
         leftSpace.add(new SmallSpace(ComplexDataTemple.DataTemple.NAEM, TxtSmall.class,smallWidth,new Object[]{DrawTool.LEFT,null}));

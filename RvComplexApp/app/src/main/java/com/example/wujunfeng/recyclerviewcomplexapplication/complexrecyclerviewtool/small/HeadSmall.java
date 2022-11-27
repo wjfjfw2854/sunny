@@ -8,6 +8,7 @@ import android.text.TextUtils;
 
 import com.example.wujunfeng.recyclerviewcomplexapplication.complexrecyclerviewtool.datatemple.ComplexDataTemple;
 import com.example.wujunfeng.recyclerviewcomplexapplication.complexrecyclerviewtool.datatemple.DataReflect;
+import com.example.wujunfeng.recyclerviewcomplexapplication.complexrecyclerviewtool.interfaces.HeadClickLis;
 import com.example.wujunfeng.recyclerviewcomplexapplication.complexrecyclerviewtool.space.SmallSpace;
 import com.example.wujunfeng.recyclerviewcomplexapplication.util.DrawTool;
 
@@ -18,6 +19,10 @@ public class HeadSmall extends Small{
     private Paint paint;
     private RectF area;
     private Object data;
+    protected static final int DEFAULTVAL=0;
+    protected static final int DOWNVAL=1;
+    protected static final int UPVAL=2;
+    protected int mSort = DEFAULTVAL;
 
     public HeadSmall(Context context, SmallSpace smallSpace) {
         super(context, smallSpace);
@@ -44,6 +49,38 @@ public class HeadSmall extends Small{
         this.data = data;
     }
 
+    public void resetSortVal() {
+        mSort = DEFAULTVAL;
+    }
+
+    public void setSortVal(){
+        ++ mSort;
+        if (mSort > UPVAL) {
+            mSort = DEFAULTVAL;
+        }
+    }
+
+    public int getSortVal() {
+        return mSort;
+    }
+
+    public void headClick(int positionRow,int indexColumn) {
+        if (space != null) {
+            Object[] args = space.args;
+            if (args != null && args.length > 3) {
+                Object obj = args[3];
+                if (obj != null && obj instanceof HeadClickLis) {
+                    String val = "headtitlename";
+                    if(data != null && space != null) {
+                        val = getTitleName();
+                    }
+                    HeadClickLis headClickLis = (HeadClickLis) obj;
+                    headClickLis.clickHead(val,positionRow,indexColumn);
+                }
+            }
+        }
+    }
+
     @Override
     public void onDraw(Canvas canvas) {
         super.onDraw(canvas);
@@ -51,45 +88,8 @@ public class HeadSmall extends Small{
 //        cn.emoney.hvscroll.DrawTool.drawRectText(canvas, str, paint, area, cn.emoney.hvscroll.DrawTool.CENTER, false);
         if(data != null&&space != null)
         {
-            ComplexDataTemple.DataTemple dataTemple = null;
-            ComplexDataTemple.DataTempleOne dataTempleOne = null;
-            ComplexDataTemple.DataTempleTwo dataTempleTwo = null;
-            if(space.obj instanceof ComplexDataTemple.DataTemple)
-            {
-                dataTemple = (ComplexDataTemple.DataTemple)space.obj;
-            }
-            else if(space.obj instanceof ComplexDataTemple.DataTempleOne)
-            {
-                dataTempleOne = (ComplexDataTemple.DataTempleOne)space.obj;
-            }
-            else if(space.obj instanceof ComplexDataTemple.DataTempleTwo)
-            {
-                dataTempleTwo = (ComplexDataTemple.DataTempleTwo)space.obj;
-            }
-            HashMap<Integer,String> hashMap = null;
-            if(data instanceof DataReflect) {
-                hashMap = (HashMap)((DataReflect) data).hashMapHead;
-                if(hashMap.size() == 0)
-                {
-                    hashMap = (HashMap)((DataReflect) data).hashMapHeadOne;
-                    if(hashMap.size() == 0)
-                    {
-                        hashMap = (HashMap)((DataReflect) data).hashMapHeadTwo;
-                    }
-                }
-            }
-            if(hashMap != null) {
-                String val = "";
-                if(dataTemple != null && hashMap.containsKey(dataTemple.id)) {
-                    val = hashMap.get(dataTemple.id);
-                }
-                else if(dataTempleOne != null && hashMap.containsKey(dataTempleOne.id)) {
-                    val = hashMap.get(dataTempleOne.id);
-                }
-                else if(dataTempleTwo != null && hashMap.containsKey(dataTempleTwo.id)) {
-                    val = hashMap.get(dataTempleTwo.id);
-                }
-                if(!TextUtils.isEmpty(val)) {
+            String val = getTitleName();
+            if(!TextUtils.isEmpty(val)) {
                     int gravity = DrawTool.CENTER;
                     Object[] args = space.args;
                     float rightSortImgWidth = 0;
@@ -97,13 +97,14 @@ public class HeadSmall extends Small{
                     if (args != null) {
                         if (args.length > 0) {
                             Object obj = args[0];
-                            if (obj instanceof Integer) {
+                            if (obj != null && obj instanceof Integer) {
                                 gravity = ((Integer) obj).intValue();
                             }
                         }
                         if (args.length > 2) {
-                            if (args[2] instanceof int[]) {
-                                int[] wh = (int[])args[2];
+                            Object obj = args[2];
+                            if (obj != null && obj instanceof int[]) {
+                                int[] wh = (int[])obj;
                                 rightSortImgWidth = wh[0];
                                 rightSortImgHeight = wh[1];
                             }
@@ -124,7 +125,47 @@ public class HeadSmall extends Small{
                     RectF rectF = new RectF(area.left,area.top,area.right-rightSortImgWidth,area.bottom);
                     DrawTool.drawRectText(canvas, val, paint, rectF, gravity, false);
                 }
+        }
+    }
+
+    private String getTitleName() {
+        ComplexDataTemple.DataTemple dataTemple = null;
+        ComplexDataTemple.DataTempleOne dataTempleOne = null;
+        ComplexDataTemple.DataTempleTwo dataTempleTwo = null;
+        if(space.obj instanceof ComplexDataTemple.DataTemple)
+        {
+            dataTemple = (ComplexDataTemple.DataTemple)space.obj;
+        }
+        else if(space.obj instanceof ComplexDataTemple.DataTempleOne)
+        {
+            dataTempleOne = (ComplexDataTemple.DataTempleOne)space.obj;
+        }
+        else if(space.obj instanceof ComplexDataTemple.DataTempleTwo)
+        {
+            dataTempleTwo = (ComplexDataTemple.DataTempleTwo)space.obj;
+        }
+        HashMap<Integer,String> hashMap = null;
+        if(data instanceof DataReflect) {
+            hashMap = (HashMap)((DataReflect) data).hashMapHead;
+            if(hashMap.size() == 0)
+            {
+                hashMap = (HashMap)((DataReflect) data).hashMapHeadOne;
+                if(hashMap.size() == 0)
+                {
+                    hashMap = (HashMap)((DataReflect) data).hashMapHeadTwo;
+                }
             }
         }
+        String val = "";
+        if(hashMap != null) {
+            if (dataTemple != null && hashMap.containsKey(dataTemple.id)) {
+                val = hashMap.get(dataTemple.id);
+            } else if (dataTempleOne != null && hashMap.containsKey(dataTempleOne.id)) {
+                val = hashMap.get(dataTempleOne.id);
+            } else if (dataTempleTwo != null && hashMap.containsKey(dataTempleTwo.id)) {
+                val = hashMap.get(dataTempleTwo.id);
+            }
+        }
+        return val;
     }
 }

@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.example.wujunfeng.recyclerviewcomplexapplication.complexrecyclerviewtool.small.HeadSmall;
 import com.example.wujunfeng.recyclerviewcomplexapplication.complexrecyclerviewtool.small.Small;
 import com.example.wujunfeng.recyclerviewcomplexapplication.complexrecyclerviewtool.space.SmallSpace;
 
@@ -56,20 +57,35 @@ public class CellScroll extends View {
             @Override
             public void onClick(View view) {
                 int column = -1;
-                for (int i = 0;i < smalls.size();i ++) {
+                int size = smalls.size();
+                boolean isHead = false;
+                for (int i = 0;i < size;i ++) {
                     Small small = smalls.get(i);
                     if (small != null) {
                         RectF rectF = small.getArea();
                         if (rectF != null && rectF.contains(x,y)) {
                             column = i;
-                            small.setSortVal();
-                            //点击标题排序后要刷新
-                            invalidate();
+                            if (small instanceof HeadSmall) {
+                                isHead = true;
+                                for (int k = 0;k < size;k ++) {
+                                    if (k == i) continue;
+                                    HeadSmall hs = (HeadSmall) smalls.get(k);
+                                    hs.resetSortVal();
+                                }
+                                HeadSmall headSmall = (HeadSmall)small;
+                                //有效的头部点击
+                                headSmall.setSortVal();
+                                headSmall.headClick(position,column);
+                                //点击标题排序后要刷新
+                                invalidate();
+                            }
                             break;
                         }
                     }
                 }
-                Toast.makeText(getContext(),"点击的是-"+(isLeft?"左边":"右边")+"-第position=" + position + "行,第column="+column+"列",Toast.LENGTH_SHORT).show();
+                if (!isHead) {
+                    Toast.makeText(getContext(), "点击的是-" + (isLeft ? "左边" : "右边") + "-第position=" + position + "行,第column=" + column + "列", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
