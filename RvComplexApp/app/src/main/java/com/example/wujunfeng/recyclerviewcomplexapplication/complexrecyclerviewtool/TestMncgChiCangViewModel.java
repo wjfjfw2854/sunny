@@ -152,6 +152,13 @@ public class TestMncgChiCangViewModel extends BaseViewModel {
 
     private void initSmallSpace()
     {
+        int[] sortDrawIdLeft = new int[]{
+                R.mipmap.tzt_hqtab_select_arrow_down,
+                R.mipmap.tzt_hqtab_select_arrow_up
+        };
+        int widthLeft = DrawTool.dp2Px(getApplication(),14);
+        int heightLeft = DrawTool.dp2Px(getApplication(),9);
+        int[] whLeft = new int[] {widthLeft,heightLeft};
         int[] sortDrawId = new int[]{
                 R.mipmap.tzt_userstock_pauxu_default,
                 R.mipmap.tzt_userstock_pauxu_down,
@@ -163,7 +170,7 @@ public class TestMncgChiCangViewModel extends BaseViewModel {
                 Toast.makeText(getApplication(),"点击的是-titleName="+titleName+"-第positionRow=" + positionRow + "行,第indexColumn="+indexColumn+"列",Toast.LENGTH_SHORT).show();
             }
         };
-        leftHeadSpace.add(new SmallSpace(ComplexDataTemple.DataTemple.NAEM, HeadSmall.class,smallWidth,new Object[]{DrawTool.LEFT,null,null,headClickLisLeft}));
+        leftHeadSpace.add(new SmallSpace(ComplexDataTemple.DataTemple.NAEM, HeadSmall.class,smallWidth,new Object[]{DrawTool.LEFT,sortDrawIdLeft,whLeft,headClickLisLeft}));
         int width = DrawTool.dp2Px(getApplication(),7);
         int height = DrawTool.dp2Px(getApplication(),13);
         HeadClickLis headClickLisRight = new HeadClickLis() {

@@ -116,7 +116,7 @@ public class HeadSmall extends Small{
                                 if (drawableId.length > 0) {
                                     RectF rectF = new RectF(area.right - rightSortImgWidth, area.top, area.right, area.bottom);
                                     int sortVal = getSortVal();
-                                    int drawableIdFinal = drawableId[sortVal];
+                                    int drawableIdFinal = drawableId[sortVal >= drawableId.length?0:sortVal];
                                     DrawTool.drawRectImage(context, canvas, drawableIdFinal, rectF, rightSortImgWidth, rightSortImgHeight);
                                 }
                             }
