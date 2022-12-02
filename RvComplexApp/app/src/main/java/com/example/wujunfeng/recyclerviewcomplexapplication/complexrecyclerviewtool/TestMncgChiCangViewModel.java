@@ -9,6 +9,7 @@ import com.example.wujunfeng.recyclerviewcomplexapplication.R;
 import com.example.wujunfeng.recyclerviewcomplexapplication.complexrecyclerviewtool.datatemple.ComplexDataTemple;
 import com.example.wujunfeng.recyclerviewcomplexapplication.complexrecyclerviewtool.datatemple.DataReflect;
 import com.example.wujunfeng.recyclerviewcomplexapplication.complexrecyclerviewtool.interfaces.HeadClickLis;
+import com.example.wujunfeng.recyclerviewcomplexapplication.complexrecyclerviewtool.interfaces.ItemClickLis;
 import com.example.wujunfeng.recyclerviewcomplexapplication.complexrecyclerviewtool.small.HeadSmall;
 import com.example.wujunfeng.recyclerviewcomplexapplication.complexrecyclerviewtool.small.TxtSmall;
 import com.example.wujunfeng.recyclerviewcomplexapplication.complexrecyclerviewtool.space.SmallSpace;
@@ -167,7 +168,7 @@ public class TestMncgChiCangViewModel extends BaseViewModel {
         HeadClickLis headClickLisLeft = new HeadClickLis() {
             @Override
             public void clickHead(String titleName,int positionRow,int indexColumn) {
-                Toast.makeText(getApplication(),"点击的是-titleName="+titleName+"-第positionRow=" + positionRow + "行,第indexColumn="+indexColumn+"列",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplication(),"点击左边列-titleName="+titleName+"-第positionRow=" + positionRow + "行,第indexColumn="+indexColumn+"列",Toast.LENGTH_SHORT).show();
             }
         };
         leftHeadSpace.add(new SmallSpace(ComplexDataTemple.DataTemple.NAEM, HeadSmall.class,smallWidth,new Object[]{DrawTool.LEFT,sortDrawIdLeft,whLeft,headClickLisLeft}));
@@ -176,7 +177,7 @@ public class TestMncgChiCangViewModel extends BaseViewModel {
         HeadClickLis headClickLisRight = new HeadClickLis() {
             @Override
             public void clickHead(String titleName,int positionRow,int indexColumn) {
-                Toast.makeText(getApplication(),"点击的是-titleName="+titleName+"-第positionRow=" + positionRow + "行,第indexColumn="+indexColumn+"列",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplication(),"点击右边可左右滚动-titleName="+titleName+"-第positionRow=" + positionRow + "行,第indexColumn="+indexColumn+"列",Toast.LENGTH_SHORT).show();
             }
         };
         for(int i = 1; i < ComplexDataTemple.DataTemple.values().length;i ++) {
@@ -184,14 +185,26 @@ public class TestMncgChiCangViewModel extends BaseViewModel {
             rightHeadSpace.add(new SmallSpace(ComplexDataTemple.DataTemple.values()[i], HeadSmall.class, smallWidth,new Object[]{DrawTool.RIGHT,sortDrawId,wh,headClickLisRight}));
         }
 
-        leftSpace.add(new SmallSpace(ComplexDataTemple.DataTemple.NAEM, TxtSmall.class,smallWidth,new Object[]{DrawTool.LEFT,null,null,null,null}));
+        ItemClickLis itemClickLisLeft = new ItemClickLis() {
+            @Override
+            public void clickItem(String val, int positionRow, int indexColumn) {
+                Toast.makeText(getApplication(),"点击左边列-val="+val+"-第positionRow=" + positionRow + "行,第indexColumn="+indexColumn+"列",Toast.LENGTH_SHORT).show();
+            }
+        };
+        ItemClickLis itemClickLisRight = new ItemClickLis() {
+            @Override
+            public void clickItem(String val, int positionRow, int indexColumn) {
+                Toast.makeText(getApplication(),"点击右边可左右滚动列-val="+val+"-第positionRow=" + positionRow + "行,第indexColumn="+indexColumn+"列",Toast.LENGTH_SHORT).show();
+            }
+        };
+        leftSpace.add(new SmallSpace(ComplexDataTemple.DataTemple.NAEM, TxtSmall.class,smallWidth,new Object[]{DrawTool.LEFT,null,null,itemClickLisLeft,null}));
         int[][] bgAndGag = new int[][]{
                 {0xFFD02541,0xff089900,0xff9d9d9d},//背景:涨-红，跌-绿，默认-灰
                 {DrawTool.dp2Px(getApplication(),5)},//背景框的间距
                 {0xffffffff,0xff212121}//黑白版字体颜色
         };
         for(int i = 1; i < ComplexDataTemple.DataTemple.values().length;i ++) {
-            rightSpace.add(new SmallSpace(ComplexDataTemple.DataTemple.values()[i], TxtSmall.class, smallWidth,new Object[]{DrawTool.RIGHT,null,null,null,bgAndGag}));
+            rightSpace.add(new SmallSpace(ComplexDataTemple.DataTemple.values()[i], TxtSmall.class, smallWidth,new Object[]{DrawTool.RIGHT,null,null,itemClickLisRight,bgAndGag}));
         }
 
 

@@ -41,4 +41,8 @@ public class Small {
     {
         postion = pos;
     }
+    /*
+    * 仅点击列表(不包含头点击)
+    * */
+    public void click(int positionRow,int indexColumn) {}
 }

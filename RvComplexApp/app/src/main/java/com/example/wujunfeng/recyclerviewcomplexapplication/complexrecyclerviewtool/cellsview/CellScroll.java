@@ -8,7 +8,6 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.example.wujunfeng.recyclerviewcomplexapplication.complexrecyclerviewtool.small.HeadSmall;
 import com.example.wujunfeng.recyclerviewcomplexapplication.complexrecyclerviewtool.small.Small;
@@ -84,7 +83,11 @@ public class CellScroll extends View {
                     }
                 }
                 if (!isHead) {
-                    Toast.makeText(getContext(), "点击的是-" + (isLeft ? "左边" : "右边") + "-第position=" + position + "行,第column=" + column + "列", Toast.LENGTH_SHORT).show();
+                    if (smalls.size() > column) {
+                        Small small = smalls.get(column);
+                        small.click(position,column);
+                    }
+//                    Toast.makeText(getContext(), "点击的是-" + (isLeft ? "左边" : "右边") + "-第position=" + position + "行,第column=" + column + "列", Toast.LENGTH_SHORT).show();
                 }
             }
         });
