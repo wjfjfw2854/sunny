@@ -90,6 +90,7 @@ public class HeadSmall extends Small{
         {
             String val = getTitleName();
             if(!TextUtils.isEmpty(val)) {
+                    int drawableIdFinal = -1;
                     int gravity = DrawTool.CENTER;
                     Object[] args = space.args;
                     float rightSortImgWidth = 0;
@@ -114,16 +115,30 @@ public class HeadSmall extends Small{
                             if (arg1 != null && arg1 instanceof int[]) {
                                 int[] drawableId = (int[]) arg1;
                                 if (drawableId.length > 0) {
-                                    RectF rectF = new RectF(area.right - rightSortImgWidth, area.top, area.right, area.bottom);
                                     int sortVal = getSortVal();
-                                    int drawableIdFinal = drawableId[sortVal >= drawableId.length?0:sortVal];
-                                    DrawTool.drawRectImage(context, canvas, drawableIdFinal, rectF, rightSortImgWidth, rightSortImgHeight);
+                                    drawableIdFinal = drawableId[sortVal >= drawableId.length?0:sortVal];
                                 }
                             }
                         }
                     }
+
                     RectF rectF = new RectF(area.left,area.top,area.right-rightSortImgWidth,area.bottom);
-                    DrawTool.drawRectText(canvas, val, paint, rectF, gravity, false);
+                    DrawTool.drawRectText(canvas, val, paint, rectF, gravity, true);
+                    if (drawableIdFinal > -1) {
+                        float widthTitle = paint.measureText(val);
+                        //图片默认最右边显示
+                        float left = area.right - rightSortImgWidth;
+                        float right = area.right;
+                        if (gravity == DrawTool.LEFT) {
+                            left = widthTitle;
+                            right = left+rightSortImgWidth;
+                        } else if (gravity == DrawTool.CENTER_HOR) {
+                            left = (area.right - area.left - widthTitle) / 2;
+                            right = left+rightSortImgWidth;
+                        }
+                        RectF rectFImg = new RectF(left, area.top, right, area.bottom);
+                        DrawTool.drawRectImage(context, canvas, drawableIdFinal, rectFImg, rightSortImgWidth, rightSortImgHeight);
+                    }
                 }
         }
     }
