@@ -82,13 +82,13 @@ public class TestMncgChiCangViewModel extends BaseViewModel {
             dataReflect.type = RvItemDataType.TYPE_TOP0;
             dataReflect.hashMapItem.put(ComplexDataTemple.DataTemple.NAEM.id, "变术" + i);
             dataReflect.hashMapItem.put(ComplexDataTemple.DataTemple.ZDF.id, "10.00%" + i);
-            dataReflect.hashMapItem.put(ComplexDataTemple.DataTemple.YK.id, "600" + i);
+            dataReflect.hashMapItem.put(ComplexDataTemple.DataTemple.YK.id, "-600" + i);
             dataReflect.hashMapItem.put(ComplexDataTemple.DataTemple.YKL.id, "70" + i);
-            dataReflect.hashMapItem.put(ComplexDataTemple.DataTemple.CBJ.id, "50" + i);
+            dataReflect.hashMapItem.put(ComplexDataTemple.DataTemple.CBJ.id, "-50" + i);
             dataReflect.hashMapItem.put(ComplexDataTemple.DataTemple.ZXJ.id, "40" + i);
-            dataReflect.hashMapItem.put(ComplexDataTemple.DataTemple.CCGS.id, "30" + i);
+            dataReflect.hashMapItem.put(ComplexDataTemple.DataTemple.CCGS.id, "-30" + i);
             dataReflect.hashMapItem.put(ComplexDataTemple.DataTemple.KMGS.id, "20" + i);
-            dataReflect.hashMapItem.put(ComplexDataTemple.DataTemple.KMGSZJ1.id, "10" + i);
+            dataReflect.hashMapItem.put(ComplexDataTemple.DataTemple.KMGSZJ1.id, "-10" + i);
             dataReflect.hashMapItem.put(ComplexDataTemple.DataTemple.KMGSZJ2.id, "210" + i);
             complexRecyclerAdapter.datas.add(dataReflect);
         }
@@ -184,9 +184,14 @@ public class TestMncgChiCangViewModel extends BaseViewModel {
             rightHeadSpace.add(new SmallSpace(ComplexDataTemple.DataTemple.values()[i], HeadSmall.class, smallWidth,new Object[]{DrawTool.RIGHT,sortDrawId,wh,headClickLisRight}));
         }
 
-        leftSpace.add(new SmallSpace(ComplexDataTemple.DataTemple.NAEM, TxtSmall.class,smallWidth,new Object[]{DrawTool.LEFT,null}));
+        leftSpace.add(new SmallSpace(ComplexDataTemple.DataTemple.NAEM, TxtSmall.class,smallWidth,new Object[]{DrawTool.LEFT,null,null,null,null}));
+        int[][] bgAndGag = new int[][]{
+                {0xFFD02541,0xff089900,0xff9d9d9d},//背景:涨-红，跌-绿，默认-灰
+                {DrawTool.dp2Px(getApplication(),5)},//背景框的间距
+                {0xffffffff,0xff212121}//黑白版字体颜色
+        };
         for(int i = 1; i < ComplexDataTemple.DataTemple.values().length;i ++) {
-            rightSpace.add(new SmallSpace(ComplexDataTemple.DataTemple.values()[i], TxtSmall.class, smallWidth,new Object[]{DrawTool.RIGHT,null}));
+            rightSpace.add(new SmallSpace(ComplexDataTemple.DataTemple.values()[i], TxtSmall.class, smallWidth,new Object[]{DrawTool.RIGHT,null,null,null,bgAndGag}));
         }
 
 

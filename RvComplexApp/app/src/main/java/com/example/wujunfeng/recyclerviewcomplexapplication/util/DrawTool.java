@@ -66,6 +66,10 @@ public class DrawTool {
         flag.draw(c);
     }
 
+    public static void drawBg(Canvas c,Paint p, RectF rect) {
+        c.drawRect(rect,p);
+    }
+
     public static int dp2Px(Context context, float dp) {
         return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
                 dp, context.getResources().getDisplayMetrics());
