@@ -14,15 +14,20 @@
             android:layout_height="match_parent">
         <TextView
             android:id="@+id/txt_add_title"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/recyclerTestmncgChicang"
             android:layout_width="match_parent"
             android:layout_height="70dp"
             android:textSize="20sp"
             android:textColor="#ff5566aa"
-            android:text="给第1个滚动头部加字段"/>
+            android:text="给第1个滚动头部加字段"
+            android:background="#aa5555"/>
         <com.example.wujunfeng.recyclerviewcomplexapplication.complexrecyclerviewtool.complexrecyclerview.ComplexRecyclerView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:id="@+id/recyclerTestmncgChicang"
+                app:layout_constraintTop_toBottomOf="@+id/txt_add_title"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:leftHeadSpace = "@{viewModel.leftHeadSpace}"
                 app:rightHeadSpace ="@{viewModel.rightHeadSpace}"
                 app:leftSpace="@{viewModel.leftSpace}"

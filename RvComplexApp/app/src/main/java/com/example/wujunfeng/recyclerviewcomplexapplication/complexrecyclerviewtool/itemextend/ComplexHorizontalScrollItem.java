@@ -8,7 +8,10 @@ import com.example.wujunfeng.recyclerviewcomplexapplication.complexrecyclerviewt
 import com.example.wujunfeng.recyclerviewcomplexapplication.complexrecyclerviewtool.cellsview.CellScroll;
 import com.example.wujunfeng.recyclerviewcomplexapplication.complexrecyclerviewtool.datatemple.DataReflect;
 import com.example.wujunfeng.recyclerviewcomplexapplication.complexrecyclerviewtool.scrollhelper.ScrollHelper;
+import com.example.wujunfeng.recyclerviewcomplexapplication.complexrecyclerviewtool.small.Small;
 import com.example.wujunfeng.recyclerviewcomplexapplication.util.RvItemDataType;
+
+import java.util.List;
 
 public class ComplexHorizontalScrollItem extends ItemBaseComplexRecycler {
 
@@ -50,6 +53,13 @@ public class ComplexHorizontalScrollItem extends ItemBaseComplexRecycler {
             }
         }
         cellScrollItemLeft.bindData(data,pos,true);
+        List<Small> list = cellScrollItemRight.getSmalls();
+        if (list != null) {
+            int size = list.size();
+            if (size > 0 && size < scrollHelper.spaceHeadRight.size()) {
+                cellScrollItemRight.setSmalls(scrollHelper.spaceHeadRight);
+            }
+        }
         cellScrollItemRight.bindData(data,pos,false);
     }
 }

@@ -19,7 +19,7 @@ public class TestMncgChiCang extends BaseFrag {
         testmncgchicangBinding.txtAddTitle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                testMncgChiCangViewModel.refreshData();
             }
         });
     }
@@ -27,6 +27,6 @@ public class TestMncgChiCang extends BaseFrag {
     @Override
     public void onSupportVisible() {
         super.onSupportVisible();
-        testMncgChiCangViewModel.initData();
+        //可见后可加一些ui展示
     }
 }

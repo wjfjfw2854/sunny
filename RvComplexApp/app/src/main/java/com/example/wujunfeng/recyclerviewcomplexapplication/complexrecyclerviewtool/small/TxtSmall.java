@@ -110,10 +110,13 @@ public class TxtSmall extends Small{
         String[] vals = null;
         if(data != null&&space != null) {
             ComplexDataTemple.DataTemple dataTemple = null;
+            ComplexDataTemple.DataTempleAddTest dataTempleAddTest = null;
             ComplexDataTemple.DataTempleOne dataTempleOne = null;
             ComplexDataTemple.DataTempleTwo dataTempleTwo = null;
             if (space.obj instanceof ComplexDataTemple.DataTemple) {
                 dataTemple = (ComplexDataTemple.DataTemple) space.obj;
+            } else if (space.obj instanceof ComplexDataTemple.DataTempleAddTest) {
+                dataTempleAddTest = (ComplexDataTemple.DataTempleAddTest) space.obj;
             } else if (space.obj instanceof ComplexDataTemple.DataTempleOne) {
                 dataTempleOne = (ComplexDataTemple.DataTempleOne) space.obj;
             } else if (space.obj instanceof ComplexDataTemple.DataTempleTwo) {
@@ -133,6 +136,8 @@ public class TxtSmall extends Small{
                 String val = "";
                 if (dataTemple != null && hashMap.containsKey(dataTemple.id)) {
                     val = hashMap.get(dataTemple.id);
+                } else if (dataTempleAddTest != null && hashMap.containsKey(dataTempleAddTest.id)) {
+                    val = hashMap.get(dataTempleAddTest.id);
                 } else if (dataTempleOne != null && hashMap.containsKey(dataTempleOne.id)) {
                     val = hashMap.get(dataTempleOne.id);
                 } else if (dataTempleTwo != null && hashMap.containsKey(dataTempleTwo.id)) {

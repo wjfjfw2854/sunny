@@ -151,6 +151,40 @@ public class TestMncgChiCangViewModel extends BaseViewModel {
         complexRecyclerAdapter.notifyDataSetChanged();
     }
 
+    public void refreshData() {
+        if (complexRecyclerAdapter != null) {
+            rightHeads(true);
+            rightSpaces(true);
+            List<Object> list = complexRecyclerAdapter.datas;
+            if (list.size() > 1) {
+                Object obj = list.get(1);
+                if (obj instanceof DataReflect) {
+                    DataReflect dataReflect = ((DataReflect)obj);
+                    for (ComplexDataTemple.DataTempleAddTest dataTempleAddTest:ComplexDataTemple.DataTempleAddTest.values()) {
+                        dataReflect.hashMapHead.put(dataTempleAddTest.id,dataTempleAddTest.name);
+                    }
+                }
+                for (int i = 2;i < list.size();i ++) {
+                    Object o = list.get(i);
+                    if (o instanceof DataReflect) {
+                        DataReflect dataReflect = (DataReflect) o;
+                        if (dataReflect.type == RvItemDataType.TYPE_TOP0) {
+                            int k = 0;
+                            for (ComplexDataTemple.DataTempleAddTest dataTempleAddTest:ComplexDataTemple.DataTempleAddTest.values()) {
+                                dataReflect.hashMapItem.put(dataTempleAddTest.id, (k % 2 == 0?"-310":"310") + k);
+                                k ++;
+                            }
+                        } else {
+                            break;
+                        }
+                    }
+
+                }
+                complexRecyclerAdapter.notifyDataSetChanged();
+            }
+        }
+    }
+
     private void initSmallSpace()
     {
         int[] sortDrawIdLeft = new int[]{
@@ -160,11 +194,6 @@ public class TestMncgChiCangViewModel extends BaseViewModel {
         int widthLeft = DrawTool.dp2Px(getApplication(),14);
         int heightLeft = DrawTool.dp2Px(getApplication(),9);
         int[] whLeft = new int[] {widthLeft,heightLeft};
-        int[] sortDrawId = new int[]{
-                R.mipmap.tzt_userstock_pauxu_default,
-                R.mipmap.tzt_userstock_pauxu_down,
-                R.mipmap.tzt_userstock_pauxu_up
-        };
         HeadClickLis headClickLisLeft = new HeadClickLis() {
             @Override
             public void clickHead(String titleName,int positionRow,int indexColumn) {
@@ -172,18 +201,7 @@ public class TestMncgChiCangViewModel extends BaseViewModel {
             }
         };
         leftHeadSpace.add(new SmallSpace(ComplexDataTemple.DataTemple.NAEM, HeadSmall.class,smallWidth,new Object[]{DrawTool.LEFT,sortDrawIdLeft,whLeft,headClickLisLeft}));
-        int width = DrawTool.dp2Px(getApplication(),7);
-        int height = DrawTool.dp2Px(getApplication(),13);
-        HeadClickLis headClickLisRight = new HeadClickLis() {
-            @Override
-            public void clickHead(String titleName,int positionRow,int indexColumn) {
-                Toast.makeText(getApplication(),"点击右边可左右滚动-titleName="+titleName+"-第positionRow=" + positionRow + "行,第indexColumn="+indexColumn+"列",Toast.LENGTH_SHORT).show();
-            }
-        };
-        for(int i = 1; i < ComplexDataTemple.DataTemple.values().length;i ++) {
-            int[] wh = new int[] {width,height};
-            rightHeadSpace.add(new SmallSpace(ComplexDataTemple.DataTemple.values()[i], HeadSmall.class, smallWidth,new Object[]{DrawTool.RIGHT,sortDrawId,wh,headClickLisRight}));
-        }
+        rightHeads(false);
 
         ItemClickLis itemClickLisLeft = new ItemClickLis() {
             @Override
@@ -191,21 +209,8 @@ public class TestMncgChiCangViewModel extends BaseViewModel {
                 Toast.makeText(getApplication(),"点击左边列-val="+val+"-第positionRow=" + positionRow + "行,第indexColumn="+indexColumn+"列",Toast.LENGTH_SHORT).show();
             }
         };
-        ItemClickLis itemClickLisRight = new ItemClickLis() {
-            @Override
-            public void clickItem(String val, int positionRow, int indexColumn) {
-                Toast.makeText(getApplication(),"点击右边可左右滚动列-val="+val+"-第positionRow=" + positionRow + "行,第indexColumn="+indexColumn+"列",Toast.LENGTH_SHORT).show();
-            }
-        };
         leftSpace.add(new SmallSpace(ComplexDataTemple.DataTemple.NAEM, TxtSmall.class,smallWidth,new Object[]{DrawTool.LEFT,null,null,itemClickLisLeft,null}));
-        int[][] bgAndGag = new int[][]{
-                {0xFFD02541,0xff089900,0xff9d9d9d},//背景:涨-红，跌-绿，默认-灰
-                {DrawTool.dp2Px(getApplication(),5)},//背景框的间距
-                {0xffffffff,0xff212121}//黑白版字体颜色
-        };
-        for(int i = 1; i < ComplexDataTemple.DataTemple.values().length;i ++) {
-            rightSpace.add(new SmallSpace(ComplexDataTemple.DataTemple.values()[i], TxtSmall.class, smallWidth,new Object[]{DrawTool.RIGHT,null,null,itemClickLisRight,bgAndGag}));
-        }
+        rightSpaces(false);
 
 
         leftHeadSpaceOne.add(new SmallSpace(ComplexDataTemple.DataTempleOne.NAEM, HeadSmall.class,smallWidth1));
@@ -230,6 +235,56 @@ public class TestMncgChiCangViewModel extends BaseViewModel {
 
     }
 
+    private void rightSpaces(boolean needAdd) {
+        ItemClickLis itemClickLisRight = new ItemClickLis() {
+            @Override
+            public void clickItem(String val, int positionRow, int indexColumn) {
+                Toast.makeText(getApplication(),"点击右边可左右滚动列-val="+val+"-第positionRow=" + positionRow + "行,第indexColumn="+indexColumn+"列",Toast.LENGTH_SHORT).show();
+            }
+        };
+        int[][] bgAndGag = new int[][]{
+                {0xFFD02541,0xff089900,0xff9d9d9d},//背景:涨-红，跌-绿，默认-灰
+                {DrawTool.dp2Px(getApplication(),5)},//背景框的间距
+                {0xffffffff,0xff212121}//黑白版字体颜色
+        };
+        if (!needAdd) {
+            for (int i = 1; i < ComplexDataTemple.DataTemple.values().length; i++) {
+                rightSpace.add(new SmallSpace(ComplexDataTemple.DataTemple.values()[i], TxtSmall.class, smallWidth, new Object[]{DrawTool.RIGHT, null, null, itemClickLisRight, bgAndGag}));
+            }
+        } else {
+            for (int i = 0; i < ComplexDataTemple.DataTempleAddTest.values().length; i++) {
+                rightSpace.add(new SmallSpace(ComplexDataTemple.DataTempleAddTest.values()[i], TxtSmall.class, smallWidth, new Object[]{DrawTool.RIGHT, null, null, itemClickLisRight, bgAndGag}));
+            }
+        }
+    }
+
+    private void rightHeads(boolean needAdd) {
+        int[] sortDrawId = new int[]{
+                R.mipmap.tzt_userstock_pauxu_default,
+                R.mipmap.tzt_userstock_pauxu_down,
+                R.mipmap.tzt_userstock_pauxu_up
+        };
+        int width = DrawTool.dp2Px(getApplication(),7);
+        int height = DrawTool.dp2Px(getApplication(),13);
+        HeadClickLis headClickLisRight = new HeadClickLis() {
+            @Override
+            public void clickHead(String titleName,int positionRow,int indexColumn) {
+                Toast.makeText(getApplication(),"点击右边可左右滚动-titleName="+titleName+"-第positionRow=" + positionRow + "行,第indexColumn="+indexColumn+"列",Toast.LENGTH_SHORT).show();
+            }
+        };
+        if (!needAdd) {
+            for (int i = 1; i < ComplexDataTemple.DataTemple.values().length; i++) {
+                int[] wh = new int[]{width, height};
+                rightHeadSpace.add(new SmallSpace(ComplexDataTemple.DataTemple.values()[i], HeadSmall.class, smallWidth, new Object[]{DrawTool.RIGHT, sortDrawId, wh, headClickLisRight}));
+            }
+        } else {
+            for (int i = 0; i < ComplexDataTemple.DataTempleAddTest.values().length; i++) {
+                int[] wh = new int[]{width, height};
+                rightHeadSpace.add(new SmallSpace(ComplexDataTemple.DataTempleAddTest.values()[i], HeadSmall.class, smallWidth, new Object[]{DrawTool.RIGHT, sortDrawId, wh, headClickLisRight}));
+            }
+        }
+    }
+
     public int getScreenWidth() {
         return contextIsNull(application) ? 0 : application.getResources().getDisplayMetrics().widthPixels;
     }
@@ -237,14 +292,4 @@ public class TestMncgChiCangViewModel extends BaseViewModel {
     public boolean contextIsNull(Context context) {
         return context == null;
     }
-
-//    private int getBackgroundRes(double value) {
-//        if (value > 0) {
-//            return R.drawable.mncg_secu_share_item_ylk_up_bg;
-//        } else if (value < 0) {
-//            return R.drawable.mncg_secu_share_item_ylk_down_bg;
-//        } else {
-//            return R.drawable.mncg_secu_share_item_ylk_normal_bg;
-//        }
-//    }
 }

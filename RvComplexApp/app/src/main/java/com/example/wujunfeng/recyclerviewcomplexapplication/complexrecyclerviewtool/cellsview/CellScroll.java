@@ -38,8 +38,16 @@ public class CellScroll extends View {
     public void initSmalls(List<SmallSpace> spaces)
     {
         smalls.clear();
+        setSmalls(spaces);
+    }
+
+    public void setSmalls(List<SmallSpace> spaces) {
         int right = 0;
-        for(int i = 0;i < spaces.size();i ++)
+        for (Small small:smalls) {
+            right += small.getArea().width();
+        }
+        int index = smalls.size();
+        for(int i = index; i < spaces.size(); i ++)
         {
             SmallSpace smallSpace = spaces.get(i);
             smallSpace.smallIndex = i;
@@ -155,5 +163,9 @@ public class CellScroll extends View {
 
     public int getPosition() {
         return position;
+    }
+
+    public List<Small> getSmalls() {
+        return smalls;
     }
 }

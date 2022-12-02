@@ -11,14 +11,6 @@ public class ComplexDataTemple implements Serializable,Cloneable {
         this.id = id;
         this.name = name;
     }
-//    public static final ComplexDataTemple NAEM = new ComplexDataTemple(0,"名称");
-//    public static final ComplexDataTemple ZDF = new ComplexDataTemple(1,"今日涨幅");
-//    public static final ComplexDataTemple YK = new ComplexDataTemple(2,"盈亏");
-//    public static final ComplexDataTemple YKL = new ComplexDataTemple(3,"盈亏率");
-//    public static final ComplexDataTemple CBJ = new ComplexDataTemple(4,"成本价");
-//    public static final ComplexDataTemple ZXJ = new ComplexDataTemple(5,"最新价");
-//    public static final ComplexDataTemple CCGS = new ComplexDataTemple(6,"持仓股数");
-//    public static final ComplexDataTemple KMGS = new ComplexDataTemple(7,"可卖股数");
     public enum DataTemple{//模拟炒股账号
         NAEM(0,"名称"),
         ZDF(1,"今日涨幅"),
@@ -33,6 +25,22 @@ public class ComplexDataTemple implements Serializable,Cloneable {
         public int id;
         public String name;
         DataTemple(int id,String name)
+        {
+            this.id = id;
+            this.name = name;
+        }
+    }
+    public enum DataTempleAddTest{
+        KMGSZJ10(10,"可卖股数10"),
+        KMGSZJ11(11,"可卖股数11"),
+        KMGSZJ12(12,"可卖股数12"),
+        KMGSZJ13(13,"可卖股数13"),
+        KMGSZJ14(14,"可卖股数14"),
+        KMGSZJ15(15,"可卖股数15"),
+        KMGSZJ16(16,"可卖股数16");
+        public int id;
+        public String name;
+        DataTempleAddTest(int id,String name)
         {
             this.id = id;
             this.name = name;
