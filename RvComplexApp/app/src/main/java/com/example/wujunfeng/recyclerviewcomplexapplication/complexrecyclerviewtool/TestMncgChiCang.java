@@ -2,6 +2,8 @@ package com.example.wujunfeng.recyclerviewcomplexapplication.complexrecyclerview
 
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
+import android.view.View;
+
 import com.example.wujunfeng.recyclerviewcomplexapplication.R;
 import com.example.wujunfeng.recyclerviewcomplexapplication.databinding.TestmncgchicangBinding;
 
@@ -14,6 +16,12 @@ public class TestMncgChiCang extends BaseFrag {
         testMncgChiCangViewModel = ViewModelProviders.of(this).get(TestMncgChiCangViewModel.class);
 //        testmncgchicangBinding.setVariable(BR.viewModel,testMncgChiCangViewModel);
         testmncgchicangBinding.setViewModel(testMncgChiCangViewModel);
+        testmncgchicangBinding.txtAddTitle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
     }
 
     @Override

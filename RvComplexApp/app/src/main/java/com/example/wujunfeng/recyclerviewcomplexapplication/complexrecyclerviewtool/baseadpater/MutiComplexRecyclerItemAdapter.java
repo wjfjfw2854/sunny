@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,15 +49,7 @@ public abstract class MutiComplexRecyclerItemAdapter extends RecyclerView.Adapte
             ItemBaseComplexRecycler itemBase = (ItemBaseComplexRecycler) cls.getConstructor(View.class, LayoutInflater.class, Object[].class).newInstance(itemView, inflater, args);
             itemBase.initView();
             return itemBase;
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return null;

@@ -12,6 +12,13 @@
     <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/txt_add_title"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:textSize="20sp"
+            android:textColor="#ff5566aa"
+            android:text="给第1个滚动头部加字段"/>
         <com.example.wujunfeng.recyclerviewcomplexapplication.complexrecyclerviewtool.complexrecyclerview.ComplexRecyclerView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
