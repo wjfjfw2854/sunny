@@ -13,6 +13,7 @@ import com.example.wujunfeng.recyclerviewcomplexapplication.complexrecyclerviewt
 import com.example.wujunfeng.recyclerviewcomplexapplication.complexrecyclerviewtool.small.HeadSmall;
 import com.example.wujunfeng.recyclerviewcomplexapplication.complexrecyclerviewtool.small.TxtSmall;
 import com.example.wujunfeng.recyclerviewcomplexapplication.complexrecyclerviewtool.space.SmallSpace;
+import com.example.wujunfeng.recyclerviewcomplexapplication.util.Care4OldersShared;
 import com.example.wujunfeng.recyclerviewcomplexapplication.util.DrawTool;
 import com.example.wujunfeng.recyclerviewcomplexapplication.util.RvItemDataType;
 import com.example.wujunfeng.recyclerviewcomplexapplication.vm.BaseViewModel;
@@ -43,6 +44,7 @@ public class TestMncgChiCangViewModel extends BaseViewModel {
     public float smallWidth1;
 
     public String label = "给第1个滚动头部加字段，点击！！！";
+    public String labelCare4Olders = Care4OldersShared.isOpenCare4Olders?"老年版列表item高度100dp，点击！！！":"正常版列表item高度32dp，点击！！！";
 
     public TestMncgChiCangViewModel(@NonNull Application application) {
         super(application);
@@ -293,5 +295,11 @@ public class TestMncgChiCangViewModel extends BaseViewModel {
 
     public boolean contextIsNull(Context context) {
         return context == null;
+    }
+
+    public void rvAdapterRefresh() {
+        if (complexRecyclerAdapter != null) {
+            complexRecyclerAdapter.notifyDataSetChanged();
+        }
     }
 }

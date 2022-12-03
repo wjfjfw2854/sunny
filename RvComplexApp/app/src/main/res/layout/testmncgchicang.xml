@@ -12,22 +12,39 @@
     <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-        <TextView
-            android:id="@+id/txt_add_title"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toTopOf="@+id/recyclerTestmncgChicang"
+        <LinearLayout
+            android:id="@+id/lin_top"
             android:layout_width="match_parent"
             android:layout_height="100dp"
-            android:gravity="center_horizontal|bottom"
-            android:textSize="20sp"
-            android:textColor="#f46d"
-            android:text="@{viewModel.label}"
-            android:background="#ffed44da"/>
+            android:orientation="horizontal"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/recyclerTestmncgChicang">
+            <TextView
+                android:id="@+id/txt_add_title"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_horizontal|bottom"
+                android:textSize="15sp"
+                android:textColor="#f46d"
+                android:text="@{viewModel.label}"
+                android:background="#ffed44da"/>
+            <TextView
+                android:id="@+id/txt_care4olders_height"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_horizontal|bottom"
+                android:textSize="15sp"
+                android:textColor="#fa6d"
+                android:text="@{viewModel.labelCare4Olders}"
+                android:background="#ff447dda"/>
+        </LinearLayout>
         <com.example.wujunfeng.recyclerviewcomplexapplication.complexrecyclerviewtool.complexrecyclerview.ComplexRecyclerView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:id="@+id/recyclerTestmncgChicang"
-                app:layout_constraintTop_toBottomOf="@+id/txt_add_title"
+                app:layout_constraintTop_toBottomOf="@+id/lin_top"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:leftHeadSpace = "@{viewModel.leftHeadSpace}"
                 app:rightHeadSpace ="@{viewModel.rightHeadSpace}"

@@ -6,6 +6,7 @@ import android.view.View;
 
 import com.example.wujunfeng.recyclerviewcomplexapplication.R;
 import com.example.wujunfeng.recyclerviewcomplexapplication.databinding.TestmncgchicangBinding;
+import com.example.wujunfeng.recyclerviewcomplexapplication.util.Care4OldersShared;
 
 public class TestMncgChiCang extends BaseFrag {
     private TestmncgchicangBinding testmncgchicangBinding;
@@ -20,6 +21,16 @@ public class TestMncgChiCang extends BaseFrag {
             @Override
             public void onClick(View view) {
                 testMncgChiCangViewModel.refreshData();
+            }
+        });
+
+        testmncgchicangBinding.txtCare4oldersHeight.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Care4OldersShared.isOpenCare4Olders = !Care4OldersShared.isOpenCare4Olders;
+                testMncgChiCangViewModel.labelCare4Olders = Care4OldersShared.isOpenCare4Olders?"老年版列表item高度100dp，点击！！！":"正常版列表item高度32dp，点击！！！";
+                testmncgchicangBinding.txtCare4oldersHeight.setText(testMncgChiCangViewModel.labelCare4Olders);
+                testMncgChiCangViewModel.rvAdapterRefresh();
             }
         });
     }
