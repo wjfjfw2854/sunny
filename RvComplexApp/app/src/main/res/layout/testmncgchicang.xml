@@ -17,11 +17,12 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toTopOf="@+id/recyclerTestmncgChicang"
             android:layout_width="match_parent"
-            android:layout_height="70dp"
+            android:layout_height="100dp"
+            android:gravity="center_horizontal|bottom"
             android:textSize="20sp"
-            android:textColor="#ff5566aa"
-            android:text="给第1个滚动头部加字段"
-            android:background="#aa5555"/>
+            android:textColor="#f46d"
+            android:text="@{viewModel.label}"
+            android:background="#ffed44da"/>
         <com.example.wujunfeng.recyclerviewcomplexapplication.complexrecyclerviewtool.complexrecyclerview.ComplexRecyclerView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

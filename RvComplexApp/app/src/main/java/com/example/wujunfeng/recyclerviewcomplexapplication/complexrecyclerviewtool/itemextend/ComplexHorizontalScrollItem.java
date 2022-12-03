@@ -56,8 +56,8 @@ public class ComplexHorizontalScrollItem extends ItemBaseComplexRecycler {
         List<Small> list = cellScrollItemRight.getSmalls();
         if (list != null) {
             int size = list.size();
-            if (size > 0 && size < scrollHelper.spaceHeadRight.size()) {
-                cellScrollItemRight.setSmalls(scrollHelper.spaceHeadRight);
+            if (size > 0 && size < scrollHelper.spaceRight.size()) {
+                cellScrollItemRight.setSmalls(scrollHelper.spaceRight);
             }
         }
         cellScrollItemRight.bindData(data,pos,false);

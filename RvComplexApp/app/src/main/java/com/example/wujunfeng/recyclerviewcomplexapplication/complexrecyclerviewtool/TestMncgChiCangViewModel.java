@@ -42,6 +42,8 @@ public class TestMncgChiCangViewModel extends BaseViewModel {
     public float smallWidth;
     public float smallWidth1;
 
+    public String label = "给第1个滚动头部加字段，点击！！！";
+
     public TestMncgChiCangViewModel(@NonNull Application application) {
         super(application);
         this.application = application;
