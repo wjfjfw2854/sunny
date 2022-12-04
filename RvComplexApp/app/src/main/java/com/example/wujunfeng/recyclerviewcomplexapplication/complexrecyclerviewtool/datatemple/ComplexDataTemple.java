@@ -21,7 +21,13 @@ public class ComplexDataTemple implements Serializable,Cloneable {
         CCGS(6,"持仓股数"),
         KMGS(7,"可卖股数"),
         KMGSZJ1(8,"可卖股数8"),
-        KMGSZJ2(9,"可卖股数9");
+        KMGSZJ2(9,"可卖股数9"),
+        KMGSZJ3(-9,"可卖股数-9"),
+        KMGSZJ4(-8,"可卖股数-8"),
+        KMGSZJ5(-7,"可卖股数-7"),
+        KMGSZJ6(-6,"可卖股数-6"),
+        KMGSZJ7(-5,"可卖股数-5"),
+        KMGSZJ8(-4,"可卖股数-4看下自动缩小啊啊");
         public int id;
         public String name;
         DataTemple(int id,String name)

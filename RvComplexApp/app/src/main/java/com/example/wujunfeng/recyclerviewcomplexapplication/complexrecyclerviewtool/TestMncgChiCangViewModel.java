@@ -71,30 +71,18 @@ public class TestMncgChiCangViewModel extends BaseViewModel {
         }
         DataReflect dataReflectOut = new DataReflect();
         dataReflectOut.type = RvItemDataType.TYPE_TOP0;
-        dataReflectOut.hashMapHead.put(ComplexDataTemple.DataTemple.NAEM.id,ComplexDataTemple.DataTemple.NAEM.name);
-        dataReflectOut.hashMapHead.put(ComplexDataTemple.DataTemple.ZDF.id,ComplexDataTemple.DataTemple.ZDF.name);
-        dataReflectOut.hashMapHead.put(ComplexDataTemple.DataTemple.YK.id,ComplexDataTemple.DataTemple.YK.name);
-        dataReflectOut.hashMapHead.put(ComplexDataTemple.DataTemple.YKL.id,ComplexDataTemple.DataTemple.YKL.name);
-        dataReflectOut.hashMapHead.put(ComplexDataTemple.DataTemple.CBJ.id,ComplexDataTemple.DataTemple.CBJ.name);
-        dataReflectOut.hashMapHead.put(ComplexDataTemple.DataTemple.ZXJ.id,ComplexDataTemple.DataTemple.ZXJ.name);
-        dataReflectOut.hashMapHead.put(ComplexDataTemple.DataTemple.CCGS.id,ComplexDataTemple.DataTemple.CCGS.name);
-        dataReflectOut.hashMapHead.put(ComplexDataTemple.DataTemple.KMGS.id,ComplexDataTemple.DataTemple.KMGS.name);
-        dataReflectOut.hashMapHead.put(ComplexDataTemple.DataTemple.KMGSZJ1.id,ComplexDataTemple.DataTemple.KMGSZJ1.name);
-        dataReflectOut.hashMapHead.put(ComplexDataTemple.DataTemple.KMGSZJ2.id,ComplexDataTemple.DataTemple.KMGSZJ2.name);
+        for (ComplexDataTemple.DataTemple dt : ComplexDataTemple.DataTemple.values()) {
+            dataReflectOut.hashMapHead.put(dt.id,dt.name);
+        }
         complexRecyclerAdapter.datas.add(dataReflectOut);
         for(int i = 0;i < 15;i ++) {
             DataReflect dataReflect = new DataReflect();
             dataReflect.type = RvItemDataType.TYPE_TOP0;
-            dataReflect.hashMapItem.put(ComplexDataTemple.DataTemple.NAEM.id, "变术" + i);
-            dataReflect.hashMapItem.put(ComplexDataTemple.DataTemple.ZDF.id, "10.00%" + i);
-            dataReflect.hashMapItem.put(ComplexDataTemple.DataTemple.YK.id, "-600" + i);
-            dataReflect.hashMapItem.put(ComplexDataTemple.DataTemple.YKL.id, "70" + i);
-            dataReflect.hashMapItem.put(ComplexDataTemple.DataTemple.CBJ.id, "-50" + i);
-            dataReflect.hashMapItem.put(ComplexDataTemple.DataTemple.ZXJ.id, "40" + i);
-            dataReflect.hashMapItem.put(ComplexDataTemple.DataTemple.CCGS.id, "-30" + i);
-            dataReflect.hashMapItem.put(ComplexDataTemple.DataTemple.KMGS.id, "20" + i);
-            dataReflect.hashMapItem.put(ComplexDataTemple.DataTemple.KMGSZJ1.id, "-10" + i);
-            dataReflect.hashMapItem.put(ComplexDataTemple.DataTemple.KMGSZJ2.id, "210" + i);
+            int k = 0;
+            for (ComplexDataTemple.DataTemple dt : ComplexDataTemple.DataTemple.values()) {
+                dataReflect.hashMapItem.put(dt.id,k == 0?"变战术" + i:(k%2==0?"888888888888":"-999"));
+                k ++;
+            }
             complexRecyclerAdapter.datas.add(dataReflect);
         }
 
