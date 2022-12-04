@@ -5,7 +5,6 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.VelocityTracker;
 import android.view.View;
@@ -13,9 +12,9 @@ import android.view.ViewConfiguration;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.OverScroller;
 import android.widget.Toast;
+
 import com.example.wujunfeng.recyclerviewcomplexapplication.complexrecyclerviewtool.ComplexRecyclerAdapter;
 import com.example.wujunfeng.recyclerviewcomplexapplication.complexrecyclerviewtool.baseadpater.MutiComplexRecyclerItemAdapter;
-import com.example.wujunfeng.recyclerviewcomplexapplication.complexrecyclerviewtool.cellsview.CellOut;
 import com.example.wujunfeng.recyclerviewcomplexapplication.complexrecyclerviewtool.datatemple.DataReflect;
 import com.example.wujunfeng.recyclerviewcomplexapplication.complexrecyclerviewtool.interfaces.ScrollListener;
 import com.example.wujunfeng.recyclerviewcomplexapplication.complexrecyclerviewtool.scrollhelper.ScrollHelper;
@@ -58,6 +57,7 @@ public class ComplexRecyclerView extends RecyclerView implements ScrollListener{
 
     private int type;
     private ComputerUtil computerUtil = new ComputerUtil();
+    private boolean stopNow = false;
 
     public ComplexRecyclerView(Context context) {
         this(context,null);
@@ -166,6 +166,7 @@ public class ComplexRecyclerView extends RecyclerView implements ScrollListener{
         switch (e.getAction())
         {
             case MotionEvent.ACTION_DOWN:
+                stopNow = false;
                 state = STAT_RESET;
                 if(!mScroller.isFinished())
                 {
@@ -334,34 +335,63 @@ public class ComplexRecyclerView extends RecyclerView implements ScrollListener{
 
     @Override
     public void computeScroll() {
-        if(mScroller.computeScrollOffset())
-        {
+        if (stopNow) return;
+        if (mScroller.computeScrollOffset()) {
             int mScrollX = mScroller.getCurrX();
             dragScroll(mScrollX);
         }
+//        if (stopNow = stopNowAwsame()) return;
         if(mScroller.isFinished() && downX == 0)
         {
-            justScroll(mScroller.getCurrX());
+            int mScrollX = mScroller.getCurrX();
+            justScroll(mScrollX);
         }
+    }
+
+    private boolean stopNowAwsame() {
+        int mScrollX = mScroller.getCurrX();
+        int left = 0;
+        int right = 0;
+        List<SmallSpace> spaceRight = computerUtil.getListSSpaces(type, scrollHelper);
+        if (spaceRight != null) {
+            for (int i = 0; i < spaceRight.size(); i++) {
+                SmallSpace smallSpace = spaceRight.get(i);
+                right += smallSpace.width;
+                if (mScrollX > left && mScrollX < right) {
+                    if (type == RvItemDataType.TYPE_TOP0) {
+                        Object[] objs = smallSpace.args;
+                        if (objs != null && objs.length > 5) {
+                            Object o = objs[5];
+                            if (o != null && o instanceof Boolean) {
+                                boolean forbidScroll = (Boolean) o;
+                                if (forbidScroll) {
+                                    if (!mScroller.isFinished()) {
+                                        mScroller.abortAnimation();
+                                    }
+                                    scroll(smallSpace.width * 2, 0);
+                                    invalidate();
+                                    return true;
+                                }
+                            }
+                        }
+                    }
+                }
+                left = right;
+            }
+        }
+        return false;
     }
 
     private void justScroll(int currX) {
         int left = 0;
         int right = 0;
         List<SmallSpace> spaceRight = computerUtil.getListSSpaces(type,scrollHelper);
-//        if(type == RvItemDataType.TYPE_TOP0)
-//        {
-//            spaceRight = scrollHelper.spaceRight;
-//        }
-//        else if(type == RvItemDataType.TYPE_TOP1)
-//        {
-//            spaceRight = scrollHelper.spaceRightOne;
-//        }
         if(spaceRight == null)
             return;
         for(int i = 0;i < spaceRight.size();i ++)
         {
-            right += spaceRight.get(i).width;
+            SmallSpace smallSpace = spaceRight.get(i);
+            right += smallSpace.width;
             if(currX > left && currX < right)
             {
                 if(Math.abs(currX - left) > Math.abs(currX - right))

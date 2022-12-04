@@ -239,13 +239,14 @@ public class TestMncgChiCangViewModel extends BaseViewModel {
                 {DrawTool.dp2Px(getApplication(),5)},//背景框的间距
                 {0xffffffff,0xff212121}//黑白版字体颜色
         };
+        boolean forbidScroll = false;//是否需要参与滚动
         if (!needAdd) {
             for (int i = 1; i < ComplexDataTemple.DataTemple.values().length; i++) {
-                rightSpace.add(new SmallSpace(ComplexDataTemple.DataTemple.values()[i], TxtSmall.class, smallWidth, new Object[]{DrawTool.RIGHT, null, null, itemClickLisRight, bgAndGag}));
+                rightSpace.add(new SmallSpace(ComplexDataTemple.DataTemple.values()[i], TxtSmall.class, smallWidth, new Object[]{DrawTool.RIGHT, null, null, itemClickLisRight, bgAndGag,i == 1||i == 2?!forbidScroll:forbidScroll}));
             }
         } else {
             for (int i = 0; i < ComplexDataTemple.DataTempleAddTest.values().length; i++) {
-                rightSpace.add(new SmallSpace(ComplexDataTemple.DataTempleAddTest.values()[i], TxtSmall.class, smallWidth, new Object[]{DrawTool.RIGHT, null, null, itemClickLisRight, bgAndGag}));
+                rightSpace.add(new SmallSpace(ComplexDataTemple.DataTempleAddTest.values()[i], TxtSmall.class, smallWidth, new Object[]{DrawTool.RIGHT, null, null, itemClickLisRight, bgAndGag,forbidScroll}));
             }
         }
     }
