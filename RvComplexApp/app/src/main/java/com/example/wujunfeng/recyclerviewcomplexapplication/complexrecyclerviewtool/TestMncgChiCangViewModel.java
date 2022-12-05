@@ -42,6 +42,7 @@ public class TestMncgChiCangViewModel extends BaseViewModel {
 
     public float smallWidth;
     public float smallWidth1;
+    public float widthLeftPage;
 
     public String label = "给第1个滚动头部加字段，点击！！！";
     public String labelCare4Olders = Care4OldersShared.isOpenCare4Olders?"老年版列表item高度100dp，点击！！！":"正常版列表item高度32dp，点击！！！";
@@ -58,6 +59,7 @@ public class TestMncgChiCangViewModel extends BaseViewModel {
         smallWidth = (getScreenWidth()) / 4f;
 //        smallWidth1 = (DeviceUtil.getInstance().getScreenWidth()) / 3f;
         smallWidth1 = smallWidth;
+        widthLeftPage = (getScreenWidth() - smallWidth) / 2f;
         initSmallSpace();
         initData();
     }
@@ -242,7 +244,7 @@ public class TestMncgChiCangViewModel extends BaseViewModel {
         boolean forbidScroll = false;//是否需要参与滚动
         if (!needAdd) {
             for (int i = 1; i < ComplexDataTemple.DataTemple.values().length; i++) {
-                rightSpace.add(new SmallSpace(ComplexDataTemple.DataTemple.values()[i], TxtSmall.class, smallWidth, new Object[]{DrawTool.RIGHT, null, null, itemClickLisRight, bgAndGag,i == 1||i == 2?!forbidScroll:forbidScroll}));
+                rightSpace.add(new SmallSpace(ComplexDataTemple.DataTemple.values()[i], TxtSmall.class, i == 1 || i == 2?widthLeftPage:smallWidth, new Object[]{DrawTool.RIGHT, null, null, itemClickLisRight, bgAndGag,i == 1||i == 2?!forbidScroll:forbidScroll}));
             }
         } else {
             for (int i = 0; i < ComplexDataTemple.DataTempleAddTest.values().length; i++) {
@@ -268,7 +270,7 @@ public class TestMncgChiCangViewModel extends BaseViewModel {
         if (!needAdd) {
             for (int i = 1; i < ComplexDataTemple.DataTemple.values().length; i++) {
                 int[] wh = new int[]{width, height};
-                rightHeadSpace.add(new SmallSpace(ComplexDataTemple.DataTemple.values()[i], HeadSmall.class, smallWidth, new Object[]{DrawTool.RIGHT, sortDrawId, wh, headClickLisRight}));
+                rightHeadSpace.add(new SmallSpace(ComplexDataTemple.DataTemple.values()[i], HeadSmall.class, i == 1 || i == 2?widthLeftPage:smallWidth, new Object[]{DrawTool.RIGHT, sortDrawId, wh, headClickLisRight}));
             }
         } else {
             for (int i = 0; i < ComplexDataTemple.DataTempleAddTest.values().length; i++) {
