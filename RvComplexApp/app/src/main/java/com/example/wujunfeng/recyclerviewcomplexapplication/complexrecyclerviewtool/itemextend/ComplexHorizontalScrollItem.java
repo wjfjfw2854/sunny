@@ -50,9 +50,9 @@ public class ComplexHorizontalScrollItem extends ItemBaseComplexRecycler {
             return;
         if (mLinComplexItem != null) {
             ViewGroup.LayoutParams lp = mLinComplexItem.getLayoutParams();
-            int heightNormal = DrawTool.dp2Px(getContext(),32);
+            int heightNormal = DrawTool.dp2Px(getContext(),51);
             lp.height = heightNormal;
-            int heightCare4Olders = DrawTool.dp2Px(getContext(),100);
+            int heightCare4Olders = DrawTool.dp2Px(getContext(),51*1.2f);
             if (Care4OldersShared.isOpenCare4Olders) {
                 lp.height = heightCare4Olders;
             }

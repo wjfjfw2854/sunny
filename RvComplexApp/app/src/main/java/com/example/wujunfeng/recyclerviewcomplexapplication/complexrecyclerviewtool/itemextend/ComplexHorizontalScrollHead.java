@@ -2,6 +2,9 @@ package com.example.wujunfeng.recyclerviewcomplexapplication.complexrecyclerview
 
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
+
 import com.example.wujunfeng.recyclerviewcomplexapplication.R;
 import com.example.wujunfeng.recyclerviewcomplexapplication.complexrecyclerviewtool.baseadpater.ItemBaseComplexRecycler;
 import com.example.wujunfeng.recyclerviewcomplexapplication.complexrecyclerviewtool.cellsview.CellOut;
@@ -9,12 +12,15 @@ import com.example.wujunfeng.recyclerviewcomplexapplication.complexrecyclerviewt
 import com.example.wujunfeng.recyclerviewcomplexapplication.complexrecyclerviewtool.datatemple.DataReflect;
 import com.example.wujunfeng.recyclerviewcomplexapplication.complexrecyclerviewtool.scrollhelper.ScrollHelper;
 import com.example.wujunfeng.recyclerviewcomplexapplication.complexrecyclerviewtool.small.Small;
+import com.example.wujunfeng.recyclerviewcomplexapplication.util.Care4OldersShared;
+import com.example.wujunfeng.recyclerviewcomplexapplication.util.DrawTool;
 import com.example.wujunfeng.recyclerviewcomplexapplication.util.RvItemDataType;
 
 import java.util.List;
 
 public class ComplexHorizontalScrollHead extends ItemBaseComplexRecycler {
 
+    private LinearLayout complexHead;
     private CellScroll cellScrollHeadLeft;
     private CellOut celloutHead;
     private CellScroll cellScrollHeadRight;
@@ -28,6 +34,7 @@ public class ComplexHorizontalScrollHead extends ItemBaseComplexRecycler {
     @Override
     public void initView() {
         scrollHelper = (ScrollHelper)args[0];
+        complexHead = (LinearLayout) findViewById(R.id.complexHead);
         cellScrollHeadLeft = (CellScroll) findViewById(R.id.cellScrollHeadLeft);
         celloutHead = (CellOut)findViewById(R.id.celloutHead);
         cellScrollHeadRight = (CellScroll)findViewById(R.id.cellScrollHeadRight);
@@ -41,6 +48,16 @@ public class ComplexHorizontalScrollHead extends ItemBaseComplexRecycler {
     public void bindData(Object data, int pos) {
         if(data == null)
             return;
+        if (complexHead != null) {
+            ViewGroup.LayoutParams lp = complexHead.getLayoutParams();
+            int heightNormal = DrawTool.dp2Px(getContext(),32);
+            lp.height = heightNormal;
+            int heightCare4Olders = DrawTool.dp2Px(getContext(),32*1.2f);
+            if (Care4OldersShared.isOpenCare4Olders) {
+                lp.height = heightCare4Olders;
+            }
+            complexHead.setLayoutParams(lp);
+        }
         if(data instanceof DataReflect) {
             DataReflect dataReflect = (DataReflect)data;
             if(dataReflect.type == RvItemDataType.TYPE_TOP0) {
