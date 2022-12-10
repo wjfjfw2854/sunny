@@ -10,9 +10,11 @@ import com.example.wujunfeng.recyclerviewcomplexapplication.complexrecyclerviewt
 import com.example.wujunfeng.recyclerviewcomplexapplication.complexrecyclerviewtool.datatemple.DataReflect;
 import com.example.wujunfeng.recyclerviewcomplexapplication.complexrecyclerviewtool.interfaces.HeadClickLis;
 import com.example.wujunfeng.recyclerviewcomplexapplication.complexrecyclerviewtool.interfaces.ItemClickLis;
+import com.example.wujunfeng.recyclerviewcomplexapplication.complexrecyclerviewtool.small.HeadLeftFixed;
 import com.example.wujunfeng.recyclerviewcomplexapplication.complexrecyclerviewtool.small.HeadSmall;
 import com.example.wujunfeng.recyclerviewcomplexapplication.complexrecyclerviewtool.small.ScrollOneLeftSmall;
 import com.example.wujunfeng.recyclerviewcomplexapplication.complexrecyclerviewtool.small.TxtSmall;
+import com.example.wujunfeng.recyclerviewcomplexapplication.complexrecyclerviewtool.small.TxtSmallLeft;
 import com.example.wujunfeng.recyclerviewcomplexapplication.complexrecyclerviewtool.space.SmallSpace;
 import com.example.wujunfeng.recyclerviewcomplexapplication.util.Care4OldersShared;
 import com.example.wujunfeng.recyclerviewcomplexapplication.util.DrawTool;
@@ -195,7 +197,7 @@ public class TestMncgChiCangViewModel extends BaseViewModel {
                 Toast.makeText(getApplication(),"点击左边列-titleName="+titleName+"-第positionRow=" + positionRow + "行,第indexColumn="+indexColumn+"列",Toast.LENGTH_SHORT).show();
             }
         };
-        leftHeadSpace.add(new SmallSpace(ComplexDataTemple.DataTemple.NAEM, HeadSmall.class,smallWidth,new Object[]{DrawTool.LEFT,sortDrawIdLeft,whLeft,headClickLisLeft}));
+        leftHeadSpace.add(new SmallSpace(ComplexDataTemple.DataTemple.NAEM, HeadLeftFixed.class,smallWidth,new Object[]{DrawTool.LEFT,sortDrawIdLeft,whLeft,headClickLisLeft}));
         rightHeads(false);
 
         ItemClickLis itemClickLisLeft = new ItemClickLis() {
@@ -204,7 +206,7 @@ public class TestMncgChiCangViewModel extends BaseViewModel {
                 Toast.makeText(getApplication(),"点击左边列-val="+val+"-第positionRow=" + positionRow + "行,第indexColumn="+indexColumn+"列",Toast.LENGTH_SHORT).show();
             }
         };
-        leftSpace.add(new SmallSpace(ComplexDataTemple.DataTemple.NAEM, TxtSmall.class,smallWidth,new Object[]{DrawTool.LEFT,null,null,itemClickLisLeft,null}));
+        leftSpace.add(new SmallSpace(ComplexDataTemple.DataTemple.NAEM, TxtSmallLeft.class,smallWidth,new Object[]{DrawTool.LEFT,null,null,itemClickLisLeft,null}));
         rightSpaces(false);
 
 

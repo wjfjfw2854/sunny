@@ -14,17 +14,9 @@ import com.example.wujunfeng.recyclerviewcomplexapplication.util.DrawTool;
 
 import java.util.HashMap;
 
-public class HeadSmall extends Small{
+public class HeadLeftFixed extends HeadSmall{
 
-    protected Paint paint;
-    protected RectF area;
-    protected Object data;
-    protected static final int DEFAULTVAL=0;
-    protected static final int DOWNVAL=1;
-    protected static final int UPVAL=2;
-    protected int mSort = DEFAULTVAL;
-
-    public HeadSmall(Context context, SmallSpace smallSpace) {
+    public HeadLeftFixed(Context context, SmallSpace smallSpace) {
         super(context, smallSpace);
         init();
     }
@@ -90,56 +82,56 @@ public class HeadSmall extends Small{
         {
             String val = getTitleName();
             if(!TextUtils.isEmpty(val)) {
-                    int drawableIdFinal = -1;
-                    int gravity = DrawTool.CENTER;
-                    Object[] args = space.args;
-                    float rightSortImgWidth = 0;
-                    float rightSortImgHeight = 0;
-                    if (args != null) {
-                        if (args.length > 0) {
-                            Object obj = args[0];
-                            if (obj != null && obj instanceof Integer) {
-                                gravity = ((Integer) obj).intValue();
-                            }
-                        }
-                        if (args.length > 2) {
-                            Object obj = args[2];
-                            if (obj != null && obj instanceof int[]) {
-                                int[] wh = (int[])obj;
-                                rightSortImgWidth = wh[0];
-                                rightSortImgHeight = wh[1];
-                            }
-                        }
-                        if (args.length > 1) {
-                            Object arg1 = args[1];
-                            if (arg1 != null && arg1 instanceof int[]) {
-                                int[] drawableId = (int[]) arg1;
-                                if (drawableId.length > 0) {
-                                    int sortVal = getSortVal();
-                                    drawableIdFinal = drawableId[sortVal >= drawableId.length?0:sortVal];
-                                }
-                            }
+                int drawableIdFinal = -1;
+                int gravity = DrawTool.CENTER;
+                Object[] args = space.args;
+                float rightSortImgWidth = 0;
+                float rightSortImgHeight = 0;
+                if (args != null) {
+                    if (args.length > 0) {
+                        Object obj = args[0];
+                        if (obj != null && obj instanceof Integer) {
+                            gravity = ((Integer) obj).intValue();
                         }
                     }
-
-                    RectF rectF = new RectF(area.left,area.top,area.right-rightSortImgWidth,area.bottom);
-                    DrawTool.drawRectText(canvas, val, paint, rectF, gravity, true);
-                    if (drawableIdFinal > -1) {
-                        float widthTitle = paint.measureText(val);
-                        //图片默认最右边显示
-                        float left = area.right - rightSortImgWidth;
-                        float right = area.right;
-                        if (gravity == DrawTool.LEFT) {
-                            left = widthTitle;
-                            right = left+rightSortImgWidth;
-                        } else if (gravity == DrawTool.CENTER_HOR) {
-                            left = (area.right - area.left - widthTitle) / 2;
-                            right = left+rightSortImgWidth;
+                    if (args.length > 2) {
+                        Object obj = args[2];
+                        if (obj != null && obj instanceof int[]) {
+                            int[] wh = (int[])obj;
+                            rightSortImgWidth = wh[0];
+                            rightSortImgHeight = wh[1];
                         }
-                        RectF rectFImg = new RectF(left, area.top, right, area.bottom);
-                        DrawTool.drawRectImage(context, canvas, drawableIdFinal, rectFImg, rightSortImgWidth, rightSortImgHeight);
+                    }
+                    if (args.length > 1) {
+                        Object arg1 = args[1];
+                        if (arg1 != null && arg1 instanceof int[]) {
+                            int[] drawableId = (int[]) arg1;
+                            if (drawableId.length > 0) {
+                                int sortVal = getSortVal();
+                                drawableIdFinal = drawableId[sortVal >= drawableId.length?0:sortVal];
+                            }
+                        }
                     }
                 }
+
+                RectF rectF = new RectF(area.left,area.top,area.right-rightSortImgWidth,area.bottom);
+                DrawTool.drawRectText(canvas, val, paint, rectF, gravity, true);
+                if (drawableIdFinal > -1) {
+                    float widthTitle = paint.measureText(val);
+                    //图片默认最右边显示
+                    float left = area.right - rightSortImgWidth;
+                    float right = area.right;
+                    if (gravity == DrawTool.LEFT) {
+                        left = widthTitle;
+                        right = left+rightSortImgWidth;
+                    } else if (gravity == DrawTool.CENTER_HOR) {
+                        left = (area.right - area.left - widthTitle) / 2;
+                        right = left+rightSortImgWidth;
+                    }
+                    RectF rectFImg = new RectF(left, area.top, right, area.bottom);
+                    DrawTool.drawRectImage(context, canvas, drawableIdFinal, rectFImg, rightSortImgWidth, rightSortImgHeight);
+                }
+            }
         }
     }
 
