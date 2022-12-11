@@ -340,7 +340,7 @@ public class ComplexRecyclerView extends RecyclerView implements ScrollListener{
             int mScrollX = mScroller.getCurrX();
             dragScroll(mScrollX);
         }
-//        if (stopNow = stopNowAwsame()) return;
+//        if (stopNow = stopNowAwesome()) return;
         if(mScroller.isFinished() && downX == 0)
         {
             int mScrollX = mScroller.getCurrX();
@@ -348,7 +348,7 @@ public class ComplexRecyclerView extends RecyclerView implements ScrollListener{
         }
     }
 
-    private boolean stopNowAwsame() {
+    private boolean stopNowAwesome() {
         int mScrollX = mScroller.getCurrX();
         int left = 0;
         int right = 0;
