@@ -59,7 +59,7 @@ public class TestMncgChiCangViewModel extends BaseViewModel {
     private void init()
     {
         complexRecyclerAdapter = new ComplexRecyclerAdapter(getApplication());
-        smallWidth = (getScreenWidth()) / 4f;
+        smallWidth = (getScreenWidth()) / (Care4OldersShared.isOpenCare4Olders?3f:4f);
 //        smallWidth1 = (DeviceUtil.getInstance().getScreenWidth()) / 3f;
         smallWidth1 = smallWidth;
         widthLeftPage = (getScreenWidth() - smallWidth);
@@ -197,7 +197,7 @@ public class TestMncgChiCangViewModel extends BaseViewModel {
                 Toast.makeText(getApplication(),"点击左边列-titleName="+titleName+"-第positionRow=" + positionRow + "行,第indexColumn="+indexColumn+"列",Toast.LENGTH_SHORT).show();
             }
         };
-        leftHeadSpace.add(new SmallSpace(ComplexDataTemple.DataTemple.NAEM, HeadLeftFixed.class,smallWidth,new Object[]{DrawTool.LEFT,sortDrawIdLeft,whLeft,headClickLisLeft}));
+        leftHeadSpace.add(new SmallSpace(ComplexDataTemple.DataTemple.NAEM, HeadLeftFixed.class,false,smallWidth,new Object[]{DrawTool.LEFT,sortDrawIdLeft,whLeft,headClickLisLeft}));
         rightHeads(false);
 
         ItemClickLis itemClickLisLeft = new ItemClickLis() {
@@ -206,7 +206,7 @@ public class TestMncgChiCangViewModel extends BaseViewModel {
                 Toast.makeText(getApplication(),"点击左边列-val="+val+"-第positionRow=" + positionRow + "行,第indexColumn="+indexColumn+"列",Toast.LENGTH_SHORT).show();
             }
         };
-        leftSpace.add(new SmallSpace(ComplexDataTemple.DataTemple.NAEM, TxtSmallLeft.class,smallWidth,new Object[]{DrawTool.LEFT,null,null,itemClickLisLeft,null}));
+        leftSpace.add(new SmallSpace(ComplexDataTemple.DataTemple.NAEM, TxtSmallLeft.class,false,smallWidth,new Object[]{DrawTool.LEFT,null,null,itemClickLisLeft,null}));
         rightSpaces(false);
 
 
@@ -248,14 +248,14 @@ public class TestMncgChiCangViewModel extends BaseViewModel {
         if (!needAdd) {
             for (int i = 1; i < ComplexDataTemple.DataTemple.values().length; i++) {
                 if (i == 2) {
-                    rightSpace.add(new SmallSpace(new Object[]{ComplexDataTemple.DataTemple.values()[i-1],ComplexDataTemple.DataTemple.values()[i]}, ScrollOneLeftSmall.class, i == 2 ? widthLeftPage : smallWidth, new Object[]{DrawTool.RIGHT, null, null, itemClickLisRight, bgAndGag, i == 2 ? !forbidScroll : forbidScroll}));
+                    rightSpace.add(new SmallSpace(new Object[]{ComplexDataTemple.DataTemple.values()[i-1],ComplexDataTemple.DataTemple.values()[i]}, ScrollOneLeftSmall.class, true,i == 2 ? widthLeftPage : smallWidth, new Object[]{DrawTool.RIGHT, null, null, itemClickLisRight, bgAndGag, i == 2 ? !forbidScroll : forbidScroll}));
                 } else if (i > 2) {
-                    rightSpace.add(new SmallSpace(ComplexDataTemple.DataTemple.values()[i], TxtSmall.class, i == 2 ? widthLeftPage : smallWidth, new Object[]{DrawTool.RIGHT, null, null, itemClickLisRight, bgAndGag, i == 2 ? !forbidScroll : forbidScroll}));
+                    rightSpace.add(new SmallSpace(ComplexDataTemple.DataTemple.values()[i], TxtSmall.class,false, i == 2 ? widthLeftPage : smallWidth, new Object[]{DrawTool.RIGHT, null, null, itemClickLisRight, bgAndGag, i == 2 ? !forbidScroll : forbidScroll}));
                 }
             }
         } else {
             for (int i = 0; i < ComplexDataTemple.DataTempleAddTest.values().length; i++) {
-                rightSpace.add(new SmallSpace(ComplexDataTemple.DataTempleAddTest.values()[i], TxtSmall.class, smallWidth, new Object[]{DrawTool.RIGHT, null, null, itemClickLisRight, bgAndGag,forbidScroll}));
+                rightSpace.add(new SmallSpace(ComplexDataTemple.DataTempleAddTest.values()[i], TxtSmall.class, false,smallWidth, new Object[]{DrawTool.RIGHT, null, null, itemClickLisRight, bgAndGag,forbidScroll}));
             }
         }
     }
@@ -277,12 +277,12 @@ public class TestMncgChiCangViewModel extends BaseViewModel {
         if (!needAdd) {
             for (int i = 1; i < ComplexDataTemple.DataTemple.values().length; i++) {
                 int[] wh = new int[]{width, height};
-                rightHeadSpace.add(new SmallSpace(ComplexDataTemple.DataTemple.values()[i], HeadSmall.class, i == 1 || i == 2?widthLeftPage/2:smallWidth, new Object[]{DrawTool.RIGHT, sortDrawId, wh, headClickLisRight}));
+                rightHeadSpace.add(new SmallSpace(ComplexDataTemple.DataTemple.values()[i], HeadSmall.class, i == 1 || i == 2?true:false,i == 1 || i == 2?widthLeftPage/2:smallWidth, new Object[]{DrawTool.RIGHT, sortDrawId, wh, headClickLisRight}));
             }
         } else {
             for (int i = 0; i < ComplexDataTemple.DataTempleAddTest.values().length; i++) {
                 int[] wh = new int[]{width, height};
-                rightHeadSpace.add(new SmallSpace(ComplexDataTemple.DataTempleAddTest.values()[i], HeadSmall.class, smallWidth, new Object[]{DrawTool.RIGHT, sortDrawId, wh, headClickLisRight}));
+                rightHeadSpace.add(new SmallSpace(ComplexDataTemple.DataTempleAddTest.values()[i], HeadSmall.class, false,smallWidth, new Object[]{DrawTool.RIGHT, sortDrawId, wh, headClickLisRight}));
             }
         }
     }
@@ -295,7 +295,50 @@ public class TestMncgChiCangViewModel extends BaseViewModel {
         return context == null;
     }
 
+    private void care4Olders3Columns() {
+        smallWidth = (getScreenWidth()) / (Care4OldersShared.isOpenCare4Olders?3f:4f);
+        smallWidth1 = smallWidth;
+        widthLeftPage = (getScreenWidth() - smallWidth);
+        if (leftHeadSpace != null && !leftHeadSpace.isEmpty()) {
+            int size = leftHeadSpace.size();
+            for (int i = 0;i < size;i ++) {
+                SmallSpace ss = leftHeadSpace.get(i);
+                ss.width = smallWidth;
+            }
+        }
+        if (rightHeadSpace != null && !rightHeadSpace.isEmpty()) {
+            int size = rightHeadSpace.size();
+            for (int i = 0;i < size;i ++) {
+                SmallSpace ss = rightHeadSpace.get(i);
+                if (ss.isNeedDealWidthSpecial()) {//(i == 0 || i == 1) {
+                    ss.width = widthLeftPage/2;
+                } else {
+                    ss.width = smallWidth;
+                }
+            }
+        }
+        if (leftSpace != null && !leftSpace.isEmpty()) {
+            int size = leftSpace.size();
+            for (int i = 0;i < size;i ++) {
+                SmallSpace ss = leftSpace.get(i);
+                ss.width = smallWidth;
+            }
+        }
+        if (rightSpace != null && !rightSpace.isEmpty()) {
+            int size = rightSpace.size();
+            for (int i = 0;i < size;i ++) {
+                SmallSpace ss = rightSpace.get(i);
+                if (ss.isNeedDealWidthSpecial()) {//(i == 0) {
+                    ss.width = widthLeftPage;
+                } else {
+                    ss.width = smallWidth;
+                }
+            }
+        }
+    }
+
     public void rvAdapterRefresh() {
+//        care4Olders3Columns();
         if (complexRecyclerAdapter != null) {
             complexRecyclerAdapter.notifyDataSetChanged();
         }
